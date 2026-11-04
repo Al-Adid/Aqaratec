@@ -1,0 +1,587 @@
+.letting-page {
+  }
+
+.letting-page .page-actions {
+  align-items: flex-start;
+}
+
+.letting-page .dialog-trigger {
+  display: inline-flex;
+}
+
+.letting-metrics {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.letting-readonly,
+.letting-feedback,
+.letting-tenant-simulation,
+.letting-warning,
+.letting-objective-note,
+.letting-received-note,
+.letting-rejected-note {
+  border-radius: 10px;
+  margin: 0;
+  padding: 12px 14px;
+}
+
+.letting-readonly {
+  background: #fff8e7;
+  border: 1px solid #e8ca80;
+  color: #735212;
+}
+
+.letting-feedback {
+  background: #f7f4ef;
+  border: 1px solid #cfc4b0;
+  color: #383023;
+}
+
+.letting-warning {
+  background: #fef6e9;
+  border: 1px solid #eab96b;
+  color: #6f511d;
+}
+
+.letting-tenant-simulation {
+  background: #edf5fd;
+  border: 1px solid #a8ccea;
+  color: #174e7b;
+  margin-bottom: 14px;
+}
+
+.letting-objective-note {
+  background: var(--surface-muted, #f9f7f4);
+  border-inline-start: 3px solid #958a76;
+  color: var(--muted, #877c68);
+  font-size: 0.86rem;
+}
+
+.letting-received-note {
+  align-items: flex-start;
+  background: #f7f4ef;
+  border: 1px solid #cfc4b0;
+  color: #383023;
+  display: flex;
+  gap: 8px;
+}
+
+.letting-table-wrap {
+  border: 1px solid var(--border, #ece9e4);
+  border-radius: 10px;
+  overflow-x: auto;
+}
+
+.letting-table {
+  border-collapse: collapse;
+  min-width: 760px;
+  width: 100%;
+}
+
+.letting-table th,
+.letting-table td {
+  border-bottom: 1px solid var(--border, #ece9e4);
+  padding: 12px 13px;
+  text-align: start;
+  vertical-align: middle;
+}
+
+.letting-table th {
+  background: #f9f7f4;
+  color: #433a2a;
+  font-size: 0.79rem;
+  font-weight: 750;
+  white-space: nowrap;
+}
+
+.letting-table tbody tr:last-child td {
+  border-bottom: 0;
+}
+
+.letting-table tbody tr:hover {
+  background: #fdfcfb;
+}
+
+.letting-row--selected {
+  background: #f6f3ee;
+  box-shadow: inset 3px 0 0 #60533c;
+}
+
+.letting-table small,
+.letting-case-ref {
+  color: var(--muted, #877c68);
+  display: block;
+  font-size: 0.76rem;
+  margin-top: 3px;
+}
+
+.letting-excel-number {
+  direction: ltr;
+  font-variant-numeric: tabular-nums;
+  text-align: start;
+  unicode-bidi: plaintext;
+  white-space: nowrap;
+}
+
+.letting-case-workspace {
+  background: #faf9f7;
+  border: 1px solid #e6dfd3;
+  border-radius: 16px;
+  display: grid;
+  gap: 20px;
+  padding: clamp(16px, 2.5vw, 28px);
+}
+
+.letting-case-header {
+  align-items: flex-start;
+  display: flex;
+  gap: 18px;
+  justify-content: space-between;
+}
+
+.letting-case-header h2 {
+  font-size: clamp(1.22rem, 2vw, 1.5rem);
+  margin: 4px 0 6px;
+}
+
+.letting-case-header p {
+  margin: 0;
+}
+
+.letting-case-header__actions {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: flex-end;
+}
+
+.letting-stepper {
+  counter-reset: letting-stage;
+  display: flex;
+  gap: 0;
+  justify-content: space-between;
+  list-style: none;
+  margin: 0;
+  overflow-x: auto;
+  padding: 0 4px 10px;
+}
+
+.letting-step {
+  align-items: center;
+  color: #6f6149;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  font-size: 0.72rem;
+  min-width: 100px;
+  position: relative;
+  text-align: center;
+}
+
+.letting-step:not(:last-child)::after {
+  background: #e9e3d9;
+  content: "";
+  height: 2px;
+  inset-inline-end: calc(-50% + 18px);
+  position: absolute;
+  top: 16px;
+  width: calc(100% - 36px);
+  z-index: 0;
+}
+
+.letting-step span {
+  align-items: center;
+  background: #fff;
+  border: 2px solid #dbd2c2;
+  border-radius: 999px;
+  display: flex;
+  font-weight: 750;
+  height: 34px;
+  justify-content: center;
+  position: relative;
+  width: 34px;
+  z-index: 1;
+}
+
+.letting-step small {
+  line-height: 1.45;
+  margin-top: 7px;
+  max-width: 120px;
+}
+
+.letting-step--active {
+  color: #362f22;
+  font-weight: 750;
+}
+
+.letting-step--active span {
+  background: #463d2c;
+  border-color: #463d2c;
+  color: #fff;
+}
+
+.letting-step--complete {
+  color: #61533c;
+}
+
+.letting-step--complete span {
+  background: #f3f0ea;
+  border-color: #a29174;
+}
+
+.letting-step--complete:not(:last-child)::after {
+  background: #a29174;
+}
+
+.letting-stepper--rejected {
+  background: #fff0f0;
+  border: 1px solid #e7aaaa;
+  border-radius: 10px;
+  color: #8a2929;
+  padding: 12px;
+}
+
+.letting-case-columns {
+  align-items: start;
+  display: grid;
+  gap: 20px;
+  grid-template-columns: minmax(0, 1fr) minmax(250px, 320px);
+}
+
+.letting-stage-panels {
+  display: grid;
+  gap: 18px;
+  min-width: 0;
+}
+
+.letting-case-sidebar {
+  display: grid;
+  gap: 18px;
+  position: sticky;
+  top: 16px;
+}
+
+.letting-form {
+  display: grid;
+  gap: 14px;
+}
+
+.letting-form-grid {
+  display: grid;
+  gap: 13px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.letting-form-grid .span-all {
+  grid-column: 1 / -1;
+}
+
+.letting-form .field {
+  width: 100%;
+}
+
+.letting-form textarea.field {
+  min-height: 94px;
+  resize: vertical;
+}
+
+.letting-locked-fields {
+  display: grid;
+  gap: 10px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.letting-locked-fields div,
+.letting-contract-summary div {
+  background: var(--surface-muted, #f9f7f4);
+  border: 1px solid var(--border, #ece9e4);
+  border-radius: 8px;
+  display: grid;
+  gap: 5px;
+  padding: 10px 12px;
+}
+
+.letting-locked-fields span,
+.letting-contract-summary span {
+  color: var(--muted, #877c68);
+  font-size: 0.77rem;
+}
+
+.letting-sensitive-field {
+  letter-spacing: 0.04em;
+}
+
+.letting-field-error {
+  background: #fff1f1;
+  border: 1px solid #e67a7a;
+  border-radius: 7px;
+  color: #942020;
+  display: block;
+  padding: 9px 11px;
+}
+
+.letting-form-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: flex-start;
+}
+
+.letting-check {
+  align-items: flex-start;
+  color: #3a3224;
+  display: flex;
+  font-size: 0.88rem;
+  gap: 8px;
+  line-height: 1.55;
+}
+
+.letting-check input {
+  accent-color: #453c2b;
+  margin-top: 4px;
+}
+
+.letting-recommendation {
+  display: grid;
+  gap: 15px;
+}
+
+.letting-recommendation > div {
+  background: var(--surface-muted, #f9f7f4);
+  border-radius: 9px;
+  padding: 11px 12px;
+}
+
+.letting-recommendation ul {
+  margin: 7px 0 0;
+  padding-inline-start: 20px;
+}
+
+.letting-recommendation li + li {
+  margin-top: 4px;
+}
+
+.letting-contract-summary {
+  display: grid;
+  gap: 10px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  margin-bottom: 15px;
+}
+
+.letting-contract-summary strong {
+  overflow-wrap: anywhere;
+}
+
+.letting-cheque-grid {
+  border: 1px solid var(--border, #ece9e4);
+  border-radius: 9px;
+  overflow: hidden;
+}
+
+.letting-cheque-grid__head,
+.letting-cheque-grid__row {
+  align-items: center;
+  display: grid;
+  gap: 10px;
+  grid-template-columns: 0.9fr 1fr 1fr 0.9fr;
+  padding: 9px 11px;
+}
+
+.letting-cheque-grid__head {
+  background: #f9f7f3;
+  color: #493f2d;
+  font-size: 0.79rem;
+  font-weight: 750;
+}
+
+.letting-cheque-grid__row {
+  border-top: 1px solid var(--border, #ece9e4);
+}
+
+.letting-cheque-grid__row .field {
+  min-width: 0;
+}
+
+.letting-booking-row {
+  align-items: center;
+  display: flex;
+  gap: 10px;
+}
+
+.letting-booking-row .field {
+  flex: 1;
+  min-width: 0;
+}
+
+.letting-final-confirmation {
+  display: grid;
+  gap: 12px;
+  max-width: 520px;
+}
+
+.letting-complete-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.letting-summary-list {
+  display: grid;
+  gap: 10px;
+  margin: 0;
+}
+
+.letting-summary-list div {
+  border-bottom: 1px solid var(--border, #ece9e4);
+  display: grid;
+  gap: 4px;
+  padding-bottom: 10px;
+}
+
+.letting-summary-list div:last-child {
+  border-bottom: 0;
+  padding-bottom: 0;
+}
+
+.letting-summary-list dt {
+  color: var(--muted, #877c68);
+  font-size: 0.78rem;
+}
+
+.letting-summary-list dd {
+  font-weight: 650;
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+
+.letting-mail-list {
+  display: grid;
+  gap: 10px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.letting-mail-list li {
+  background: #faf8f6;
+  border: 1px solid #e8e2d8;
+  border-radius: 8px;
+  display: grid;
+  gap: 6px;
+  padding: 10px;
+}
+
+.letting-mail-list li > div {
+  align-items: center;
+  display: flex;
+  gap: 6px;
+}
+
+.letting-mail-list span,
+.letting-mail-list small {
+  color: var(--muted, #877c68);
+  font-size: 0.76rem;
+  overflow-wrap: anywhere;
+}
+
+.letting-mail-list p {
+  font-size: 0.84rem;
+  line-height: 1.55;
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+
+.letting-contract-ref,
+.letting-calendar-window {
+  align-items: flex-start;
+  display: flex;
+  font-size: 0.82rem;
+  gap: 7px;
+  line-height: 1.6;
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+
+@media (max-width: 1000px) {
+  .letting-case-columns {
+    grid-template-columns: 1fr;
+  }
+
+  .letting-case-sidebar {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    position: static;
+  }
+
+  .letting-case-sidebar > :last-child:nth-child(odd) {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 760px) {
+  .letting-metrics {
+    grid-template-columns: 1fr;
+  }
+
+  .letting-case-header {
+    flex-direction: column;
+  }
+
+  .letting-case-header__actions {
+    justify-content: flex-start;
+  }
+
+  .letting-stepper {
+    justify-content: flex-start;
+  }
+
+  .letting-step {
+    flex: 0 0 104px;
+  }
+
+  .letting-step:not(:last-child)::after {
+    inset-inline-end: -52px;
+    width: 68px;
+  }
+
+  .letting-form-grid,
+  .letting-locked-fields,
+  .letting-contract-summary,
+  .letting-case-sidebar {
+    grid-template-columns: 1fr;
+  }
+
+  .letting-case-sidebar > :last-child:nth-child(odd) {
+    grid-column: auto;
+  }
+
+  .letting-cheque-grid {
+    overflow-x: auto;
+  }
+
+  .letting-cheque-grid__head,
+  .letting-cheque-grid__row {
+    min-width: 630px;
+  }
+
+  .letting-booking-row {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .letting-table-wrap {
+    margin-inline: -2px;
+  }
+}
+
+@media (max-width: 460px) {
+  .letting-case-workspace {
+    border-radius: 12px;
+    padding: 13px;
+  }
+
+  .letting-table th,
+  .letting-table td {
+    padding: 10px;
+  }
+}

@@ -1,0 +1,31 @@
+{
+  "name": "صُنّاع الفرص",
+  "sourceRevision": "4864e35ccc4780383009f4304e378c4432adc89a",
+  "publishedRevision": "c10f2f3f464f26ee17ff30107c25c06865b3512f",
+  "sourcePublicationStatus": "saved_not_published",
+  "publishedUrl": "https://sunnaafurs-4cqeamvh.manus.space",
+  "packagedDate": "2026-10-28",
+  "includes": [
+    "source",
+    "compiled_build",
+    "tests",
+    "documentation",
+    "lockfile",
+    "database_schema_and_migrations"
+  ],
+  "excludes": [
+    "runtime_secrets",
+    "node_modules",
+    "git_history",
+    "live_database",
+    "browser_local_data_and_media"
+  ],
+  "checks": {
+    "testFilesPassed": 121,
+    "testsPassed": 777,
+    "testsSkipped": 1,
+    "typecheck": "passed",
+    "build": "passed",
+    "validationMode": "full_suite_then_affected_page_recheck"
+  }
+}

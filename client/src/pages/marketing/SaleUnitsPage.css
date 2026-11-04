@@ -1,0 +1,227 @@
+.sale-units-page {
+}
+
+.sale-units-page__marketing-link {
+  align-items: center;
+  background: #f7f4f0;
+  border: 1px solid #d6ccbb;
+  border-radius: 8px;
+  color: #3a3224;
+  display: inline-flex;
+  font-size: 0.83rem;
+  font-weight: 750;
+  padding: 7px 10px;
+  white-space: nowrap;
+}
+
+.sale-units-page__marketing-link:hover,
+.sale-units-page__marketing-link:focus-visible,
+.sale-units-page__property-link:hover,
+.sale-units-page__property-link:focus-visible,
+.sale-units-page__details:hover,
+.sale-units-page__details:focus-visible {
+  color: #2f291e;
+  text-decoration: underline;
+}
+
+.sale-units-page__metrics {
+  display: grid;
+  gap: 12px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.sale-units-page__panel {
+}
+
+.sale-units-page__notice {
+  background: #f7f4ef;
+  border: 1px solid #cfc4b0;
+  border-inline-start: 3px solid #60533c;
+  border-radius: 10px;
+  color: #372f22;
+  font-size: 0.86rem;
+  line-height: 1.7;
+  margin: 0 0 15px;
+  padding: 11px 13px;
+}
+
+.sale-units-page__filters {
+  align-items: end;
+  display: grid;
+  gap: 11px;
+  grid-template-columns: minmax(170px, 1.5fr) repeat(2, minmax(145px, 1fr));
+  margin: 0 0 15px;
+}
+
+.sale-units-page__filters label {
+  color: #6f6149;
+  display: grid;
+  font-size: 0.78rem;
+  font-weight: 700;
+  gap: 5px;
+}
+
+.sale-units-page__filters .field {
+  min-width: 0;
+}
+
+.sale-units-page__table-wrap {
+  border: 1px solid #ebe6dd;
+  border-radius: 10px;
+  overflow-x: auto;
+}
+
+.sale-units-page__table {
+  border-collapse: collapse;
+  min-width: 1040px;
+  width: 100%;
+}
+
+.sale-units-page__table th,
+.sale-units-page__table td {
+  border-bottom: 1px solid #eeeae3;
+  padding: 10px 12px;
+  text-align: start;
+  vertical-align: middle;
+}
+
+.sale-units-page__table th {
+  background: #faf9f7;
+  color: #6c5d44;
+  font-size: 0.75rem;
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+.sale-units-page__table td {
+  color: #60523b;
+  font-size: 0.83rem;
+  line-height: 1.55;
+}
+
+.sale-units-page__table tbody tr:hover {
+  background: #fdfcfb;
+}
+
+.sale-units-page__table tbody tr:last-child td {
+  border-bottom: 0;
+}
+
+.sale-units-page__cover-cell {
+  width: 88px;
+}
+
+.sale-units-page__cover {
+  border: 1px solid #eae4da;
+  border-radius: 7px;
+  height: 52px;
+  margin: 0;
+  overflow: hidden;
+  width: 72px;
+}
+
+.sale-units-page__cover .property-cover__image,
+.sale-units-page__cover .property-cover__placeholder {
+  font-size: 0.66rem;
+  height: 100%;
+  min-height: 0;
+  min-width: 0;
+  line-height: 1.35;
+  width: 100%;
+}
+
+.sale-units-page__cover .property-cover__placeholder {
+  align-items: center;
+  background: #f9f7f4;
+  color: #6e6049;
+  display: flex;
+  justify-content: center;
+  padding: 5px;
+  text-align: center;
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+
+.sale-units-page__property-link {
+  color: #3a3224;
+  font-weight: 750;
+  text-decoration: none;
+}
+
+.sale-units-page__unit-title {
+  color: #3a3224;
+  display: block;
+  font-size: 0.86rem;
+  font-weight: 750;
+}
+
+.sale-units-page__code,
+.sale-units-page__number {
+  direction: ltr;
+  font-family: "IBM Plex Sans Arabic", sans-serif;
+  font-variant-numeric: tabular-nums;
+  unicode-bidi: plaintext;
+  white-space: nowrap;
+}
+
+.sale-units-page__code {
+  color: #6e6049;
+  display: inline-block;
+  font-size: 0.75rem;
+  margin-top: 2px;
+}
+
+.sale-units-page__price {
+  color: #3a3224 !important;
+  font-family: "IBM Plex Sans Arabic", sans-serif;
+  font-size: 0.86rem !important;
+  font-variant-numeric: tabular-nums;
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+.sale-units-page__details {
+  background: transparent;
+  color: #3a3224;
+  font-size: 0.8rem;
+  font-weight: 750;
+  padding: 3px 0;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.sale-units-page__result-count {
+  color: #6f6149;
+  font-size: 0.8rem;
+  margin: 11px 0 0;
+}
+
+@media (max-width: 780px) {
+  .sale-units-page__metrics {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .sale-units-page__filters {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .sale-units-page__search {
+    grid-column: span 2;
+  }
+}
+
+@media (max-width: 520px) {
+  .sale-units-page__metrics,
+  .sale-units-page__filters {
+    grid-template-columns: 1fr;
+  }
+
+  .sale-units-page__search {
+    grid-column: auto;
+  }
+
+  .sale-units-page__marketing-link {
+    justify-content: center;
+    width: 100%;
+  }
+}

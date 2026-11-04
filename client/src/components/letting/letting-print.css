@@ -1,0 +1,77 @@
+@media print {
+  @page {
+    size: A4;
+    margin: 14mm;
+  }
+
+  body > * {
+    visibility: hidden !important;
+  }
+
+  .letting-contract-preview,
+  .letting-contract-preview * {
+    visibility: visible !important;
+  }
+
+  .letting-contract-preview__backdrop {
+    position: static !important;
+    display: block !important;
+    background: transparent !important;
+  }
+
+  .letting-contract-preview {
+    position: static !important;
+    display: block !important;
+    width: auto !important;
+    max-width: none !important;
+    min-height: auto !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    color: #111 !important;
+    background: #fff !important;
+    box-shadow: none !important;
+    direction: rtl;
+  }
+
+  .letting-contract-preview__toolbar {
+    display: none !important;
+  }
+
+  .letting-contract-preview__page {
+    width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    break-inside: avoid;
+  }
+
+  .letting-contract-preview__header {
+    border-bottom: 1px solid #111;
+    margin-bottom: 8mm;
+    padding-bottom: 4mm;
+  }
+
+  .letting-contract-preview__warning {
+    border: 1px solid #555;
+    margin: 0 0 7mm;
+    padding: 3mm;
+    font-weight: 700;
+  }
+
+  .letting-contract-preview__content pre {
+    margin: 0;
+    color: #111 !important;
+    background: transparent !important;
+    font-family: "Noto Naskh Arabic", Tahoma, Arial, sans-serif;
+    font-size: 11pt;
+    line-height: 1.7;
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+  }
+
+  .letting-contract-preview__footer {
+    border-top: 1px solid #111;
+    margin-top: 9mm;
+    padding-top: 4mm;
+    font-size: 9pt;
+  }
+}

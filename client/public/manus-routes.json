@@ -1,0 +1,164 @@
+{
+  "routes": [
+    {
+      "path": "/",
+      "title": "صُنّاع الفرص · الخدمات والتسجيل"
+    },
+    {
+      "path": "/login",
+      "title": "تسجيل الدخول"
+    },
+    {
+      "path": "/register",
+      "title": "إنشاء حساب"
+    },
+    {
+      "path": "/demo",
+      "title": "تجربة محلية بدون حساب"
+    },
+    {
+      "path": "/dashboard",
+      "title": "لوحة التحكم"
+    },
+    {
+      "path": "/insights",
+      "title": "التحليل والاقتراحات · قريبًا"
+    },
+    {
+      "path": "/portfolios",
+      "title": "المحافظ"
+    },
+    {
+      "path": "/ownership",
+      "title": "الشركاء والملكية · قريبًا"
+    },
+    {
+      "path": "/properties",
+      "title": "العقارات والوحدات"
+    },
+    {
+      "path": "/properties/:id",
+      "title": "ملف العقار"
+    },
+    {
+      "path": "/leases",
+      "title": "العقود والتسجيل"
+    },
+    {
+      "path": "/contract-templates",
+      "title": "نماذج العقود"
+    },
+    {
+      "path": "/billing",
+      "title": "الفواتير والمستحقات"
+    },
+    {
+      "path": "/collections",
+      "title": "التحصيل والشيكات"
+    },
+    {
+      "path": "/finance",
+      "title": "المالية والسيولة"
+    },
+    {
+      "path": "/expenses",
+      "title": "المصروفات"
+    },
+    {
+      "path": "/reconciliation",
+      "title": "المطابقة · قريبًا"
+    },
+    {
+      "path": "/payments",
+      "title": "روابط الدفع · قريبًا"
+    },
+    {
+      "path": "/reports",
+      "title": "التقارير"
+    },
+    {
+      "path": "/documents",
+      "title": "خزنة المستندات · قريبًا"
+    },
+    {
+      "path": "/vacancy",
+      "title": "الشغور"
+    },
+    {
+      "path": "/maintenance",
+      "title": "الصيانة والوقاية"
+    },
+    {
+      "path": "/vendors",
+      "title": "الموردون · قريبًا"
+    },
+    {
+      "path": "/inspections",
+      "title": "الاستلام والتسليم · قريبًا"
+    },
+    {
+      "path": "/disputes",
+      "title": "النزاعات · قريبًا"
+    },
+    {
+      "path": "/tasks",
+      "title": "المهام · قريبًا"
+    },
+    {
+      "path": "/notifications",
+      "title": "التنبيهات · قريبًا"
+    },
+    {
+      "path": "/portals",
+      "title": "بوابات الأطراف · قريبًا"
+    },
+    {
+      "path": "/assistant",
+      "title": "مساعد واتساب · قريبًا"
+    },
+    {
+      "path": "/marketing",
+      "title": "التسويق العقاري وشركات الوساطة"
+    },
+    {
+      "path": "/signatures",
+      "title": "التوقيع · قريبًا"
+    },
+    {
+      "path": "/market",
+      "title": "سوق الإيجارات · قريبًا"
+    },
+    {
+      "path": "/growth",
+      "title": "المستشار العقاري · قريبًا"
+    },
+    {
+      "path": "/opportunities",
+      "title": "قناص الفرص · قريبًا"
+    },
+    {
+      "path": "/data",
+      "title": "المصادر والجودة · قريبًا"
+    },
+    {
+      "path": "/funding",
+      "title": "جاهزية التمويل · قريبًا"
+    },
+    {
+      "path": "/settings",
+      "title": "الصلاحيات والاشتراكات · قريبًا"
+    },
+    {
+      "path": "/roadmap",
+      "title": "فهرس خدمات النظام"
+    },
+    {
+      "path": "/unleased",
+      "title": "وحدات غير مؤجرة · رحلة التأجير"
+    },
+    {
+      "path": "/sale-units",
+      "title": "وحدات للبيع"
+    }
+  ]
+}

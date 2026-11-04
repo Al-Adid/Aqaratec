@@ -1,0 +1,320 @@
+.lease-document-preview-backdrop {
+  position: fixed;
+  z-index: 220;
+  inset: 0;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 28px;
+  overflow: auto;
+  background: rgba(22, 45, 35, 0.58);
+}
+
+.lease-document-preview-sheet {
+  width: min(100%, 860px);
+  min-height: 720px;
+  margin: auto;
+  overflow: hidden;
+  background: #fff;
+  color: #332c20;
+  box-shadow: 0 18px 52px rgba(18, 48, 28, 0.25);
+  font-family: "IBM Plex Sans Arabic", "Tahoma", sans-serif;
+}
+
+.lease-document-preview-actions {
+  position: sticky;
+  z-index: 2;
+  top: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 13px 18px;
+  border-bottom: 1px solid #eee9e1;
+  background: rgba(255, 255, 255, 0.97);
+}
+
+.lease-document-preview-actions > div {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+.lease-document-preview-actions button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  min-height: 36px;
+  padding: 8px 11px;
+  border: 1px solid #e7e1d6;
+  border-radius: 7px;
+  background: #fff;
+  color: #6a5c43;
+  font:
+    500 11px/1.4 "IBM Plex Sans Arabic",
+    "Tahoma",
+    sans-serif;
+}
+
+.lease-document-preview-actions .lease-document-preview-close:hover,
+.lease-document-preview-actions .lease-document-preview-text:hover {
+  background: #f9f7f3;
+}
+
+.lease-document-preview-actions .lease-document-preview-print {
+  border-color: #826c45;
+  background: #826c45;
+  color: #fff;
+}
+
+.lease-document-preview-actions .lease-document-preview-print:hover {
+  border-color: #292319;
+  background: #292319;
+}
+
+.lease-document-preview-content {
+  padding: 42px 52px 32px;
+}
+
+.lease-document-preview-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 28px;
+  padding-bottom: 24px;
+  border-bottom: 2px solid #826c45;
+}
+
+.lease-document-preview-header > div:first-child > span {
+  color: #988564;
+  font-size: 11px;
+}
+
+.lease-document-preview-header h2 {
+  margin-top: 4px;
+  color: #372f22;
+  font-size: 21px;
+  font-weight: 600;
+}
+
+.lease-document-preview-version {
+  min-width: 150px;
+  padding: 10px 12px;
+  border: 1px solid #ebe6dd;
+  background: #fbfaf8;
+  text-align: end;
+}
+
+.lease-document-preview-version span,
+.lease-document-preview-version strong,
+.lease-document-preview-version small {
+  display: block;
+}
+
+.lease-document-preview-version span,
+.lease-document-preview-version small {
+  color: #a18f71;
+  font-size: 9px;
+}
+
+.lease-document-preview-version strong {
+  margin: 4px 0;
+  overflow-wrap: anywhere;
+  color: #695b42;
+  font-size: 11px;
+  font-weight: 500;
+}
+
+.lease-document-preview-data-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  margin: 23px 0 0;
+  border-top: 1px solid #efebe4;
+  border-inline-start: 1px solid #efebe4;
+}
+
+.lease-document-preview__data-item {
+  min-width: 0;
+  padding: 11px 13px;
+  border-bottom: 1px solid #efebe4;
+  border-inline-end: 1px solid #efebe4;
+  background: #fdfcfb;
+}
+
+.lease-document-preview__data-item dt,
+.lease-document-preview__data-item dd {
+  margin: 0;
+}
+
+.lease-document-preview__data-item dt {
+  color: #a49375;
+  font-size: 10px;
+}
+
+.lease-document-preview__data-item dd {
+  margin-top: 4px;
+  overflow-wrap: anywhere;
+  color: #6a5c43;
+  font-size: 11px;
+  font-weight: 500;
+}
+
+.lease-document-preview-text-body {
+  margin-top: 26px;
+  padding: 22px 24px;
+  border: 1px solid #ede9e1;
+  border-radius: 2px;
+  background: #fff;
+}
+
+.lease-document-preview-text-body pre {
+  margin: 0;
+  overflow-wrap: anywhere;
+  color: #3f3626;
+  font:
+    400 13px/2 "IBM Plex Sans Arabic",
+    "Tahoma",
+    sans-serif;
+  white-space: pre-wrap;
+}
+
+.lease-document-preview-footer {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-top: 28px;
+  padding-top: 14px;
+  border-top: 1px solid #eeeae3;
+  color: #867a65;
+  font-size: 9px;
+  line-height: 1.65;
+}
+
+.lease-document-preview-footer strong {
+  color: #83704f;
+  font-size: 10px;
+  font-weight: 600;
+}
+
+@media (max-width: 640px) {
+  .lease-document-preview-backdrop {
+    padding: 0;
+  }
+
+  .lease-document-preview-sheet {
+    width: 100%;
+    min-height: 100%;
+  }
+
+  .lease-document-preview-actions {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .lease-document-preview-actions > div {
+    width: 100%;
+    justify-content: stretch;
+  }
+
+  .lease-document-preview-actions > div button {
+    flex: 1;
+  }
+
+  .lease-document-preview-content {
+    padding: 27px 20px 25px;
+  }
+
+  .lease-document-preview-header {
+    gap: 14px;
+  }
+
+  .lease-document-preview-header h2 {
+    font-size: 17px;
+  }
+
+  .lease-document-preview-version {
+    min-width: 116px;
+  }
+
+  .lease-document-preview-data-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .lease-document-preview-text-body {
+    padding: 17px;
+  }
+}
+
+@media print {
+  @page {
+    size: A4;
+    margin: 14mm 15mm 12mm;
+    @top-right {
+      content: "صُنّاع الفرص · مسودة عقد تجريبية";
+      font:
+        8pt "Noto Sans Arabic",
+        "Tahoma",
+        sans-serif;
+      color: #7b6c52;
+    }
+    @bottom-left {
+      content: counter(page) " / " counter(pages);
+      direction: ltr;
+      unicode-bidi: isolate;
+      font:
+        8pt "Noto Sans Arabic",
+        "Tahoma",
+        sans-serif;
+      color: #7b6c52;
+    }
+  }
+
+  body:has(> .lease-document-preview-backdrop) > #root {
+    display: none !important;
+  }
+
+  .lease-document-preview-backdrop {
+    position: static !important;
+    display: block !important;
+    width: auto !important;
+    min-height: 0 !important;
+    height: auto !important;
+    overflow: visible !important;
+    padding: 0 !important;
+    background: transparent !important;
+  }
+
+  .lease-document-preview-sheet {
+    width: auto !important;
+    min-height: 0 !important;
+    margin: 0 !important;
+    overflow: visible !important;
+    box-shadow: none !important;
+  }
+
+  .lease-document-preview-content {
+    padding: 0 !important;
+  }
+
+  .lease-document-preview-actions {
+    display: none !important;
+  }
+
+  .lease-document-preview-text-body {
+    break-inside: auto;
+  }
+
+  .lease-document-preview-footer,
+  .lease-document-preview-data-grid {
+    break-inside: avoid;
+  }
+
+  .lease-document-preview-sheet,
+  .lease-document-preview-sheet * {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+}

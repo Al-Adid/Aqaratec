@@ -1,0 +1,38 @@
+{
+  "tested": true,
+  "engine": "Chromium isolated headless via Playwright",
+  "realPages": 2,
+  "fictionalScope": "qa-two-tabs-03bc8cb7-0ed0-421e-a186-5961822f37c3",
+  "readiness": [
+    {
+      "locks": true,
+      "secure": true
+    },
+    {
+      "locks": true,
+      "secure": true
+    }
+  ],
+  "results": [
+    {
+      "ok": false,
+      "reason": "generation-conflict",
+      "generation": null,
+      "startedAt": 1792882184691
+    },
+    {
+      "ok": true,
+      "reason": null,
+      "generation": 1,
+      "startedAt": 1792882184691
+    }
+  ],
+  "oneWinner": true,
+  "oneConflict": true,
+  "validEnvelope": true,
+  "generation": 1,
+  "realAccountsTested": false,
+  "twoDevicesTested": false,
+  "productionDatabaseTouched": false,
+  "externalRequestsBlocked": true
+}

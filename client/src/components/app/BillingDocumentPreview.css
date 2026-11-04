@@ -1,0 +1,584 @@
+.billing-document-preview-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  overflow: auto;
+  padding: 28px;
+  background: rgba(22, 45, 35, 0.58);
+}
+
+.billing-document-preview-sheet {
+  position: relative;
+  width: min(100%, 860px);
+  min-height: 720px;
+  margin: auto;
+  background: #fff;
+  color: #2e281d;
+  box-shadow: 0 18px 52px rgba(18, 48, 28, 0.25);
+  font-family: "IBM Plex Sans Arabic", "Tahoma", sans-serif;
+}
+
+.billing-document-preview-content {
+  padding: 42px 52px 32px;
+}
+
+.billing-document-preview-actions {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 13px 18px;
+  border-bottom: 1px solid #eee9e1;
+  background: rgba(255, 255, 255, 0.96);
+}
+
+.billing-document-preview-actions button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  min-height: 36px;
+  border: 1px solid #e7e1d6;
+  border-radius: 7px;
+  padding: 8px 12px;
+  background: #fff;
+  color: #6a5c43;
+  font:
+    500 11px/1.4 "IBM Plex Sans Arabic",
+    "Tahoma",
+    sans-serif;
+}
+
+.billing-document-preview-actions .billing-document-preview-print {
+  border-color: #826c45;
+  background: #826c45;
+  color: #fff;
+}
+
+.billing-document-preview-actions .billing-document-preview-print:hover {
+  background: #292319;
+}
+
+.billing-document-preview-actions .billing-document-preview-close:hover {
+  background: #f9f7f3;
+}
+
+.billing-document-preview-dialog-title {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.billing-document-preview-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 28px;
+  padding-bottom: 25px;
+  border-bottom: 2px solid #826c45;
+}
+
+.billing-document-preview-brand {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+}
+
+.billing-document-preview-brand img {
+  width: 42px;
+  height: 42px;
+  border-radius: 9px;
+  object-fit: cover;
+}
+
+.billing-document-preview-brand strong,
+.billing-document-preview-brand span {
+  display: block;
+}
+
+.billing-document-preview-brand strong {
+  color: #332c20;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1.35;
+}
+
+.billing-document-preview-brand span {
+  margin-top: 2px;
+  color: #a19072;
+  font-size: 10px;
+}
+
+.billing-document-preview-document-name {
+  text-align: end;
+}
+
+.billing-document-preview-document-name > span,
+.billing-document-preview-document-name bdi {
+  display: block;
+}
+
+.billing-document-preview-document-name > span {
+  color: #8a795c;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.billing-document-preview-document-name bdi {
+  margin-top: 5px;
+  color: #322b20;
+  font-family: "IBM Plex Sans Arabic", "Tahoma", sans-serif;
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 0.2px;
+}
+
+.billing-document-preview-summary {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+  padding: 23px 0;
+}
+
+.billing-document-preview-summary > div {
+  min-width: 0;
+  padding-inline-end: 14px;
+  border-inline-end: 1px solid #f0ece6;
+}
+
+.billing-document-preview-summary > div:last-child {
+  padding-inline-end: 0;
+  border-inline-end: 0;
+}
+
+.billing-document-preview-summary span,
+.billing-document-preview-summary strong {
+  display: block;
+}
+
+.billing-document-preview-summary span,
+.billing-document-preview-data-item dt,
+.billing-document-preview-totals dt {
+  color: #a49375;
+  font-size: 10px;
+}
+
+.billing-document-preview-summary strong {
+  margin-top: 5px;
+  overflow-wrap: anywhere;
+  color: #433a2a;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.billing-document-preview-data-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0;
+  margin: 0;
+  border-top: 1px solid #efebe4;
+  border-inline-start: 1px solid #efebe4;
+}
+
+.billing-document-preview-data-item {
+  min-width: 0;
+  padding: 11px 13px;
+  border-bottom: 1px solid #efebe4;
+  border-inline-end: 1px solid #efebe4;
+  background: #fdfcfb;
+}
+
+.billing-document-preview-data-item dt,
+.billing-document-preview-data-item dd {
+  margin: 0;
+}
+
+.billing-document-preview-data-item dd {
+  margin-top: 4px;
+  overflow-wrap: anywhere;
+  color: #6a5c43;
+  font-size: 11px;
+  font-weight: 500;
+}
+
+.billing-document-preview-number {
+  direction: ltr;
+  font-family: "IBM Plex Sans Arabic", "Tahoma", sans-serif;
+  font-variant-numeric: tabular-nums;
+  unicode-bidi: plaintext;
+}
+
+.billing-document-preview-lines-section {
+  margin-top: 25px;
+}
+
+.billing-document-preview-lines-section h3,
+.billing-document-preview-settlement h3,
+.billing-document-preview-notes h3 {
+  margin: 0 0 10px;
+  color: #695b42;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.billing-document-preview-table-wrap {
+  overflow-x: auto;
+  border: 1px solid #eeeae3;
+}
+
+.billing-document-preview-table {
+  width: 100%;
+  min-width: 520px;
+  border-collapse: collapse;
+  text-align: start;
+}
+
+.billing-document-preview-table th,
+.billing-document-preview-table td {
+  padding: 10px 12px;
+  border-bottom: 1px solid #f0ece6;
+  font-size: 10px;
+}
+
+.billing-document-preview-table th {
+  background: #f9f7f3;
+  color: #958262;
+  font-weight: 500;
+}
+
+.billing-document-preview-table td {
+  color: #6a5c43;
+  vertical-align: top;
+}
+
+.billing-document-preview-table tbody tr:last-child td {
+  border-bottom: 0;
+}
+
+.billing-document-preview-table th:not(:first-child),
+.billing-document-preview-table td:not(:first-child) {
+  text-align: end;
+}
+
+.billing-document-preview-empty-line {
+  padding: 18px !important;
+  text-align: center !important;
+  color: #a9987c !important;
+}
+
+.billing-document-preview-totals {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 17px;
+}
+
+.billing-document-preview-totals dl {
+  width: min(100%, 310px);
+  margin: 0;
+}
+
+.billing-document-preview-totals dl > div {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  padding: 8px 0;
+  border-bottom: 1px solid #f4f0ea;
+}
+
+.billing-document-preview-totals dd {
+  margin: 0;
+  direction: ltr;
+  color: #695b42;
+  font:
+    500 11px "IBM Plex Sans Arabic",
+    "Tahoma",
+    sans-serif;
+  font-variant-numeric: tabular-nums;
+}
+
+.billing-document-preview-totals .billing-document-preview-total-row {
+  margin-top: 5px;
+  padding: 10px 0;
+  border-top: 1px solid #e0d9cc;
+  border-bottom: 0;
+}
+
+.billing-document-preview-total-row dt,
+.billing-document-preview-total-row dd {
+  color: #826c45;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.billing-document-preview-settlement {
+  margin-top: 24px;
+  padding: 15px;
+  border: 1px solid #ece7de;
+  background: #fbfaf8;
+}
+
+.billing-document-preview-settlement h3 {
+  margin-bottom: 12px;
+}
+
+.billing-document-preview-settlement > div {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.billing-document-preview-settlement > div > span {
+  min-width: 0;
+  padding: 0 12px;
+  border-inline-end: 1px solid #ece7de;
+}
+
+.billing-document-preview-settlement > div > span:first-child {
+  padding-inline-start: 0;
+}
+
+.billing-document-preview-settlement > div > span:last-child {
+  padding-inline-end: 0;
+  border-inline-end: 0;
+}
+
+.billing-document-preview-settlement small,
+.billing-document-preview-settlement strong {
+  display: block;
+}
+
+.billing-document-preview-settlement small {
+  color: #a39274;
+  font-size: 10px;
+}
+
+.billing-document-preview-settlement strong {
+  margin-top: 4px;
+  direction: ltr;
+  color: #695b42;
+  font:
+    500 12px "IBM Plex Sans Arabic",
+    "Tahoma",
+    sans-serif;
+  font-variant-numeric: tabular-nums;
+}
+
+.billing-document-preview-notes {
+  margin-top: 22px;
+  padding: 14px 15px;
+  border-inline-start: 3px solid #ded5c6;
+  background: #fcfbfa;
+}
+
+.billing-document-preview-notes h3 {
+  margin-bottom: 5px;
+}
+
+.billing-document-preview-notes p {
+  margin: 0;
+  overflow-wrap: anywhere;
+  color: #837256;
+  font-size: 11px;
+  line-height: 1.8;
+  white-space: pre-wrap;
+}
+
+.billing-document-preview-receipt-amounts {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+  margin-top: 23px;
+}
+
+.billing-document-preview-receipt-amounts > div {
+  padding: 18px;
+  border: 1px solid #eae4da;
+  background: #fbfaf8;
+}
+
+.billing-document-preview-receipt-amounts span,
+.billing-document-preview-receipt-amounts strong {
+  display: block;
+}
+
+.billing-document-preview-receipt-amounts span {
+  color: #a08e70;
+  font-size: 10px;
+}
+
+.billing-document-preview-receipt-amounts strong {
+  margin-top: 6px;
+  direction: ltr;
+  color: #826c45;
+  font:
+    600 17px "IBM Plex Sans Arabic",
+    "Tahoma",
+    sans-serif;
+  font-variant-numeric: tabular-nums;
+}
+
+.billing-document-preview-prototype-footer {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-top: 28px;
+  padding-top: 14px;
+  border-top: 1px solid #eeeae3;
+  color: #867a65;
+  font-size: 9px;
+  line-height: 1.65;
+}
+
+.billing-document-preview-prototype-footer strong {
+  color: #83704f;
+  font-size: 10px;
+  font-weight: 600;
+}
+
+.billing-document-preview-safari-help {
+  margin: 0;
+  padding: 10px 18px;
+  border-top: 1px solid #f4f0ea;
+  color: #a49375;
+  font-size: 10px;
+  text-align: center;
+}
+
+@media (max-width: 640px) {
+  .billing-document-preview-backdrop {
+    padding: 0;
+  }
+
+  .billing-document-preview-sheet {
+    width: 100%;
+    min-height: 100%;
+  }
+
+  .billing-document-preview-content {
+    padding: 27px 20px 25px;
+  }
+
+  .billing-document-preview-header {
+    align-items: flex-start;
+    gap: 14px;
+  }
+
+  .billing-document-preview-brand strong {
+    font-size: 14px;
+  }
+
+  .billing-document-preview-document-name > span {
+    font-size: 11px;
+  }
+
+  .billing-document-preview-document-name bdi {
+    font-size: 12px;
+  }
+
+  .billing-document-preview-summary,
+  .billing-document-preview-data-grid,
+  .billing-document-preview-receipt-amounts {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .billing-document-preview-summary > div:nth-child(2) {
+    padding-inline-end: 0;
+    border-inline-end: 0;
+  }
+
+  .billing-document-preview-summary > div:last-child {
+    grid-column: 1 / -1;
+    padding-top: 12px;
+    border-top: 1px solid #f0ece6;
+  }
+
+  .billing-document-preview-settlement > div {
+    grid-template-columns: 1fr;
+    gap: 11px;
+  }
+
+  .billing-document-preview-settlement > div > span,
+  .billing-document-preview-settlement > div > span:first-child,
+  .billing-document-preview-settlement > div > span:last-child {
+    padding: 0 0 10px;
+    border: 0;
+    border-bottom: 1px solid #ece7de;
+  }
+
+  .billing-document-preview-settlement > div > span:last-child {
+    padding-bottom: 0;
+    border-bottom: 0;
+  }
+}
+
+@media print {
+  @page {
+    size: A4;
+    margin: 0;
+  }
+
+  body:has(> .billing-document-preview-backdrop) > #root {
+    display: none !important;
+  }
+
+  .billing-document-preview-backdrop {
+    position: static !important;
+    display: block !important;
+    width: auto !important;
+    min-height: 0 !important;
+    height: auto !important;
+    overflow: visible !important;
+    padding: 0 !important;
+    background: transparent !important;
+  }
+
+  .billing-document-preview-sheet {
+    width: 210mm !important;
+    min-height: 297mm !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    overflow: visible !important;
+    box-shadow: none !important;
+  }
+
+  .billing-document-preview-content {
+    padding: 14mm 15mm 12mm !important;
+  }
+
+  .billing-document-preview-actions,
+  .billing-document-preview-safari-help {
+    display: none !important;
+  }
+
+  .billing-document-preview-table-wrap {
+    overflow: visible !important;
+  }
+
+  .billing-document-preview-table {
+    min-width: 0 !important;
+  }
+
+  .billing-document-preview-lines-section,
+  .billing-document-preview-settlement,
+  .billing-document-preview-notes,
+  .billing-document-preview-receipt-amounts,
+  .billing-document-preview-prototype-footer {
+    break-inside: avoid;
+  }
+
+  .billing-document-preview-sheet,
+  .billing-document-preview-sheet * {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+}

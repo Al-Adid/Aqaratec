@@ -1,0 +1,58 @@
+{
+  "project": "SunnaaFurs",
+  "commit": "8fea4ae0a9118868bd37ae7e547f242c8ca23140",
+  "date": "2026-10-25",
+  "sourceComplete": true,
+  "publicationRequestedForSameCommit": true,
+  "publicationResultNotAssumed": true,
+  "checks": {
+    "testFilesPassed": 77,
+    "testsPassed": 362,
+    "testsSkipped": 1,
+    "typecheck": "passed",
+    "build": "passed"
+  },
+  "contents": "Complete committed application source, tests, lockfile, documentation and safe public asset copies.",
+  "excludes": [
+    "environment secrets",
+    "node_modules",
+    ".git",
+    "database copy",
+    "browser workspace",
+    "user uploaded identity/credit files",
+    "private property attachments"
+  ],
+  "assets": [
+    {
+      "path": "/manus-storage/async-images/GFtehVUmaym9Fk53lp2cs1/image-1.webp",
+      "included": true,
+      "bytes": 32224,
+      "sha256": "a56ed369be313a0dd212cdc93ecaf3c880473335d9fc6d357fec0276a0a599a2"
+    },
+    {
+      "path": "/manus-storage/async-images/GFtehVUmaym9Fk53lp2cs1/image-2.webp",
+      "included": true,
+      "bytes": 558774,
+      "sha256": "83b079c2bca87432fca5cdb22e0e8b4fadc85d61871125f0828fc086b4b11755"
+    },
+    {
+      "path": "/manus-storage/async-images/GFtehVUmaym9Fk53lp2cs1/image-3.webp",
+      "included": true,
+      "bytes": 548646,
+      "sha256": "3b7bddb2ef6a1f91c98b1e85ee0ebba73e425b6cd1c8c193250a0beb583a4282"
+    },
+    {
+      "path": "/manus-storage/async-images/GFtehVUmaym9Fk53lp2cs1/image-4.webp",
+      "included": true,
+      "bytes": 280850,
+      "sha256": "a260df878d0e2d2161059ba82b3efea39438165e3958d80d6bbb0efd41a3ae7b"
+    }
+  ],
+  "limitations": [
+    "prototype, not production-certified",
+    "broker campaigns are unsent previews",
+    "Manus authentication and cloud services require project configuration",
+    "deferred advisor and hunter are retained but inactive",
+    "local user attachments are not transported by the source archive"
+  ]
+}

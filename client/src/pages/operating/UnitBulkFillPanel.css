@@ -1,0 +1,206 @@
+.unit-bulk-fill-panel {
+  background: #fbf9f7;
+  border: 1px solid #c6b8a0;
+  border-inline-start: 4px solid var(--primary, #826c45);
+  border-radius: 12px;
+  margin: 16px 0 20px;
+  padding: 16px;
+}
+
+.unit-bulk-fill-panel__heading,
+.unit-bulk-fill-panel__section-heading,
+.unit-bulk-fill-panel__actions {
+  align-items: flex-start;
+  display: flex;
+  gap: 14px;
+  justify-content: space-between;
+}
+
+.unit-bulk-fill-panel__heading h3,
+.unit-bulk-fill-panel__heading p,
+.unit-bulk-fill-panel__section-heading h4,
+.unit-bulk-fill-panel__section-heading p,
+.unit-bulk-fill-panel__preview h4,
+.unit-bulk-fill-panel__preview p {
+  margin: 0;
+}
+
+.unit-bulk-fill-panel__heading p,
+.unit-bulk-fill-panel__section-heading p {
+  line-height: 1.75;
+  margin-top: 5px;
+  max-width: 700px;
+}
+
+.unit-bulk-fill-panel__source,
+.unit-bulk-fill-panel__units,
+.unit-bulk-fill-panel__preview {
+  border-top: 1px solid #e8e1d6;
+  margin-top: 16px;
+  padding-top: 14px;
+}
+
+.unit-bulk-fill-panel__check {
+  align-items: center;
+  cursor: pointer;
+  display: inline-flex;
+  gap: 7px;
+  line-height: 1.5;
+}
+
+.unit-bulk-fill-panel__check input {
+  accent-color: var(--primary, #826c45);
+  inline-size: 16px;
+  margin: 0;
+}
+
+.unit-bulk-fill-panel__check:has(input:disabled) {
+  cursor: not-allowed;
+  opacity: 0.65;
+}
+
+.unit-bulk-fill-panel__source-facts {
+  margin-top: 11px !important;
+}
+
+.unit-bulk-fill-panel__facts {
+  display: grid;
+  gap: 6px 14px;
+  grid-template-columns: minmax(145px, auto) minmax(0, 1fr);
+  margin: 0;
+}
+
+.unit-bulk-fill-panel__facts > div {
+  display: contents;
+}
+
+.unit-bulk-fill-panel__facts dt {
+  color: var(--muted, #877c68);
+  font-size: 0.84rem;
+}
+
+.unit-bulk-fill-panel__facts dd {
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+
+.unit-bulk-fill-panel__scope-note {
+  background: #f6f3ef;
+  border: 1px solid #e0d8cb;
+  border-radius: 7px;
+  color: #3a3224;
+  font-size: 0.84rem;
+  line-height: 1.7;
+  margin: 12px 0 0;
+  padding: 9px 10px;
+}
+
+.unit-bulk-fill-panel__unit-list {
+  display: grid;
+  gap: 8px 14px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  margin-top: 12px;
+  max-height: 170px;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: 2px;
+}
+
+.unit-bulk-fill-panel__unit-list .unit-bulk-fill-panel__check {
+  background: #fff;
+  border: 1px solid #e8e1d6;
+  border-radius: 7px;
+  min-height: 36px;
+  padding: 7px 9px;
+}
+
+.unit-bulk-fill-panel__unit-list b {
+  color: #403727;
+  font-family: "IBM Plex Sans", sans-serif;
+  font-size: 0.84rem;
+}
+
+.unit-bulk-fill-panel__preview ul {
+  display: grid;
+  gap: 8px;
+  list-style: none;
+  margin: 12px 0 0;
+  padding: 0;
+}
+
+.unit-bulk-fill-panel__preview li {
+  background: #fff;
+  border: 1px solid #e8e1d6;
+  border-radius: 8px;
+}
+
+.unit-bulk-fill-panel__preview details {
+  padding: 9px 10px;
+}
+
+.unit-bulk-fill-panel__preview summary {
+  align-items: center;
+  cursor: pointer;
+  display: flex;
+  gap: 10px;
+  justify-content: space-between;
+  line-height: 1.5;
+}
+
+.unit-bulk-fill-panel__preview summary::marker {
+  color: var(--primary, #826c45);
+}
+
+.unit-bulk-fill-panel__preview details[open] summary {
+  border-bottom: 1px solid #f4f1eb;
+  margin-bottom: 9px;
+  padding-bottom: 8px;
+}
+
+.unit-bulk-fill-panel__preview s {
+  color: #764242;
+}
+
+.unit-bulk-fill-panel__preview dd b {
+  color: #826c45;
+}
+
+.unit-bulk-fill-panel__actions {
+  align-items: center;
+  border-top: 1px solid #e8e1d6;
+  margin-top: 16px;
+  padding-top: 14px;
+}
+
+@media (max-width: 640px) {
+  .unit-bulk-fill-panel {
+    margin-inline: -2px;
+    padding: 13px;
+  }
+
+  .unit-bulk-fill-panel__heading,
+  .unit-bulk-fill-panel__section-heading,
+  .unit-bulk-fill-panel__actions {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .unit-bulk-fill-panel__unit-list {
+    grid-template-columns: 1fr;
+  }
+
+  .unit-bulk-fill-panel__facts {
+    grid-template-columns: minmax(110px, auto) minmax(0, 1fr);
+  }
+
+  .unit-bulk-fill-panel__preview summary {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 3px;
+  }
+
+  .unit-bulk-fill-panel__actions .btn-primary,
+  .unit-bulk-fill-panel__actions .btn-secondary {
+    width: 100%;
+  }
+}

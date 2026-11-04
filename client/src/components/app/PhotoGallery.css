@@ -1,0 +1,208 @@
+.photo-gallery {
+  text-align: start;
+}
+
+.photo-gallery-notice {
+  margin: 0 0 14px;
+  padding: 10px 12px;
+  border: 1px solid color-mix(in srgb, var(--blue, #3b82f6) 28%, transparent);
+  border-radius: 10px;
+  color: var(--muted, #6f6656);
+  background: color-mix(in srgb, var(--blue, #3b82f6) 7%, transparent);
+  font-size: 0.88rem;
+  line-height: 1.65;
+}
+
+.photo-gallery-file-input {
+  position: absolute;
+  inline-size: 1px;
+  block-size: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.photo-gallery-error,
+.photo-gallery-message,
+.photo-gallery-empty {
+  margin: 10px 0;
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+
+.photo-gallery-error {
+  color: var(--red, #b42318);
+}
+
+.photo-gallery-message {
+  color: var(--green, #3c3425);
+}
+
+.photo-gallery-empty {
+  color: var(--muted, #847967);
+}
+
+.photo-gallery-grid,
+.photo-gallery-staged {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(172px, 1fr));
+  gap: 12px;
+  margin-top: 14px;
+}
+
+.photo-gallery-card {
+  min-width: 0;
+  overflow: hidden;
+  border: 1px solid var(--border, #e4e0da);
+  border-radius: 12px;
+  background: var(--surface, #fff);
+}
+
+.photo-gallery-card img,
+.photo-gallery-placeholder {
+  display: block;
+  inline-size: 100%;
+  aspect-ratio: 4 / 3;
+}
+
+.photo-gallery-card img {
+  object-fit: cover;
+  background: #f3f1ef;
+}
+
+.photo-gallery-placeholder {
+  display: grid;
+  place-items: center;
+  padding: 14px;
+  color: var(--muted, #847967);
+  background: #f9f8f6;
+  text-align: center;
+  font-size: 0.82rem;
+  line-height: 1.55;
+}
+
+.photo-gallery-card-footer {
+  display: grid;
+  gap: 8px;
+  padding: 10px;
+}
+
+.photo-gallery-card-footer > span {
+  overflow: hidden;
+  color: var(--ink, #27241e);
+  font-size: 0.83rem;
+  font-weight: 600;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.photo-gallery-remove {
+  justify-content: center;
+  inline-size: 100%;
+  font-size: 0.78rem;
+}
+
+.photo-gallery-unit-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 9px;
+  margin: 16px 0 0;
+  padding: 14px;
+  border: 1px solid var(--border, #e4e0da);
+  border-radius: 12px;
+}
+
+.photo-gallery-unit-list legend {
+  padding-inline: 5px;
+  color: var(--ink, #27241e);
+  font-weight: 700;
+}
+
+.photo-gallery-unit-choice {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+  padding: 9px 10px;
+  border: 1px solid var(--border, #e4e0da);
+  border-radius: 9px;
+  cursor: pointer;
+}
+
+.photo-gallery-unit-choice:has(input:checked) {
+  border-color: var(--blue, #3b82f6);
+  background: color-mix(in srgb, var(--blue, #3b82f6) 8%, transparent);
+}
+
+.photo-gallery-unit-choice input {
+  inline-size: 16px;
+  block-size: 16px;
+  accent-color: var(--blue, #2563eb);
+}
+
+.photo-gallery-unit-choice span {
+  overflow: hidden;
+  font-size: 0.88rem;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.photo-gallery-unit-choice small {
+  color: var(--muted, #847967);
+  font-size: 0.74rem;
+}
+
+.photo-gallery-group-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 16px;
+  padding-top: 14px;
+  border-top: 1px solid var(--border, #e4e0da);
+  color: var(--muted, #847967);
+  font-size: 0.88rem;
+}
+
+.photo-gallery-backdrop {
+  z-index: 70;
+}
+
+.photo-gallery-dialog {
+  text-align: start;
+}
+
+.photo-gallery-dialog > p {
+  margin: 12px 0;
+  color: var(--muted, #847967);
+  line-height: 1.65;
+}
+
+.photo-gallery-review-list {
+  display: grid;
+  gap: 6px;
+  max-block-size: 180px;
+  margin: 0 0 14px;
+  padding-block: 0 0; padding-inline: 20px 0;
+  overflow: auto;
+}
+
+.photo-gallery-review-list li {
+  color: var(--ink, #27241e);
+}
+
+@media (max-width: 560px) {
+  .photo-gallery .panel-heading,
+  .photo-gallery-group-actions {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .photo-gallery .btn-primary,
+  .photo-gallery-group-actions .btn-secondary {
+    justify-content: center;
+  }
+}

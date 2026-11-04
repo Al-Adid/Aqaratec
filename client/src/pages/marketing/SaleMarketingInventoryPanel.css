@@ -1,0 +1,211 @@
+.sale-marketing-inventory {
+}
+
+.sale-marketing-inventory__notice {
+  background: #f7f4ef;
+  border: 1px solid #cfc4b0;
+  border-inline-start: 3px solid #60533c;
+  border-radius: 10px;
+  color: #372f22;
+  font-size: 0.86rem;
+  line-height: 1.7;
+  margin: 0 0 15px;
+  padding: 11px 13px;
+}
+
+.sale-marketing-inventory__list {
+  display: grid;
+  gap: 13px;
+}
+
+.sale-marketing-inventory__card {
+  background: #fefdfc;
+  border: 1px solid #e6dfd3;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.sale-marketing-inventory__card-header {
+  align-items: flex-start;
+  background: linear-gradient(135deg, #faf9f7, #ffffff);
+  display: flex;
+  gap: 14px;
+  justify-content: space-between;
+  padding: 14px 15px 12px;
+}
+
+.sale-marketing-inventory__eyebrow {
+  color: #60533c;
+  font-size: 0.74rem;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+}
+
+.sale-marketing-inventory__card h3 {
+  color: #322b1f;
+  font-size: 1rem;
+  line-height: 1.45;
+  margin: 3px 0 2px;
+}
+
+.sale-marketing-inventory__location {
+  color: #6f6149;
+  font-size: 0.8rem;
+  line-height: 1.5;
+  margin: 0;
+}
+
+.sale-marketing-inventory__property-link,
+.sale-marketing-inventory__unit-link {
+  color: #3a3224;
+  font-size: 0.82rem;
+  font-weight: 750;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.sale-marketing-inventory__property-link {
+  background: #f7f4f0;
+  border: 1px solid #d6ccbb;
+  border-radius: 8px;
+  padding: 7px 10px;
+}
+
+.sale-marketing-inventory__property-link:hover,
+.sale-marketing-inventory__property-link:focus-visible,
+.sale-marketing-inventory__unit-link:hover,
+.sale-marketing-inventory__unit-link:focus-visible {
+  color: #2f291e;
+  text-decoration: underline;
+}
+
+.sale-marketing-inventory__property-link:focus-visible,
+.sale-marketing-inventory__unit-link:focus-visible,
+.sale-marketing-inventory__units > summary:focus-visible {
+  outline: 3px solid rgba(40, 116, 82, 0.3);
+  outline-offset: 2px;
+}
+
+.sale-marketing-inventory__facts {
+  display: grid;
+  gap: 8px;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  margin: 0;
+  padding: 0 15px 14px;
+}
+
+.sale-marketing-inventory__facts > div {
+  background: #ffffff;
+  border: 1px solid #ece7df;
+  border-radius: 8px;
+  display: grid;
+  gap: 4px;
+  min-width: 0;
+  padding: 9px 10px;
+}
+
+.sale-marketing-inventory__facts dt {
+  color: #6e6049;
+  font-size: 0.72rem;
+}
+
+.sale-marketing-inventory__facts dd {
+  color: #3a3224;
+  font-size: 0.84rem;
+  font-weight: 650;
+  line-height: 1.5;
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+
+.sale-marketing-inventory__facts .sale-marketing-inventory__price {
+  color: #3a3224;
+  font-weight: 800;
+}
+
+.sale-marketing-inventory__number {
+  direction: ltr;
+  font-variant-numeric: tabular-nums;
+  unicode-bidi: plaintext;
+  white-space: nowrap;
+}
+
+.sale-marketing-inventory__units {
+  border-top: 1px solid #eae5db;
+}
+
+.sale-marketing-inventory__units > summary {
+  color: #453c2b;
+  cursor: pointer;
+  font-size: 0.83rem;
+  font-weight: 750;
+  list-style-position: inside;
+  padding: 11px 15px;
+}
+
+.sale-marketing-inventory__units[open] > summary {
+  background: #f9f7f5;
+  border-bottom: 1px solid #eae5db;
+}
+
+.sale-marketing-inventory__unit-table-wrap {
+  overflow-x: auto;
+}
+
+.sale-marketing-inventory__unit-table {
+  border-collapse: collapse;
+  min-width: 720px;
+  width: 100%;
+}
+
+.sale-marketing-inventory__unit-table th,
+.sale-marketing-inventory__unit-table td {
+  border-bottom: 1px solid #eeeae3;
+  padding: 9px 12px;
+  text-align: start;
+  vertical-align: middle;
+}
+
+.sale-marketing-inventory__unit-table th {
+  background: #fbfaf8;
+  color: #6c5d44;
+  font-size: 0.73rem;
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+.sale-marketing-inventory__unit-table td {
+  color: #60523b;
+  font-size: 0.8rem;
+}
+
+.sale-marketing-inventory__unit-table tbody tr:last-child td {
+  border-bottom: 0;
+}
+
+.sale-marketing-inventory__unit-table .sale-marketing-inventory__price {
+  color: #3a3224;
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+@media (max-width: 780px) {
+  .sale-marketing-inventory__facts {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 520px) {
+  .sale-marketing-inventory__card-header {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .sale-marketing-inventory__property-link {
+    text-align: center;
+  }
+
+  .sale-marketing-inventory__facts {
+    grid-template-columns: 1fr;
+  }
+}

@@ -1,0 +1,292 @@
+/* Public sign-in / sign-up. Self-contained. */
+.sf-account-page {
+  --b50: #f7f3ec;
+  --b100: #efe7da;
+  --b200: #e1d4bd;
+  --b600: #826c45;
+  --b700: #695431;
+  --b800: #514126;
+  --ink: #30291d;
+  --muted: #6b604c;
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: minmax(300px, 0.85fr) minmax(0, 1.15fr);
+  background: #faf7f1;
+  color: var(--ink);
+  font-family: "IBM Plex Sans Arabic", "Segoe UI", Tahoma, sans-serif;
+  line-height: 1.8;
+}
+.sf-account-page *,
+.sf-account-page *::before,
+.sf-account-page *::after {
+  box-sizing: border-box;
+}
+.sf-account-aside {
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 40px;
+  padding: clamp(28px, 4vw, 56px);
+  color: #fbeedd;
+  background:
+    radial-gradient(80% 60% at 100% 0%, rgba(255, 214, 160, 0.3), transparent 60%),
+    linear-gradient(160deg, #91784d 0%, #725d39 50%, #57462a 100%);
+}
+.sf-account-aside::after {
+  content: "";
+  position: absolute;
+  inset-inline: 0;
+  inset-block-end: 0;
+  height: 45%;
+  opacity: 0.1;
+  background-image: radial-gradient(circle at 50% 100%, transparent 0 22px, #fff 22px 23px, transparent 23px);
+  background-size: 56px 56px;
+  pointer-events: none;
+}
+.sf-account-aside__brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  color: #fef9ef;
+  text-decoration: none;
+  font: 600 20px "Readex Pro Variable", sans-serif;
+}
+.sf-account-aside__brand img {
+  width: 44px;
+  height: 44px;
+  border-radius: 13px;
+}
+.sf-account-aside h2 {
+  margin: 0 0 22px;
+  font: 600 clamp(26px, 3vw, 38px) / 1.3 "Readex Pro Variable", sans-serif;
+  color: #fffaf3;
+  max-width: 420px;
+}
+.sf-account-aside ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 12px;
+}
+.sf-account-aside li {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 15.5px;
+  color: #f4e6cf;
+}
+.sf-account-aside li svg {
+  flex-shrink: 0;
+  width: 26px;
+  height: 26px;
+  padding: 5px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.16);
+}
+.sf-account-aside small {
+  position: relative;
+  z-index: 1;
+  font-size: 13px;
+  color: #e3d3b8;
+}
+.sf-account-main {
+  display: flex;
+  flex-direction: column;
+  padding: clamp(20px, 3vw, 36px);
+}
+.sf-account-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+.sf-account-back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--b700);
+  font-size: 14.5px;
+  font-weight: 500;
+  text-decoration: none;
+}
+.sf-account-back-link:hover {
+  text-decoration: underline;
+}
+.sf-account-card {
+  width: min(100%, 520px);
+  margin: auto;
+  padding: clamp(26px, 4vw, 44px);
+  background: #fff;
+  border: 1px solid #ebe3d5;
+  border-radius: 28px;
+  box-shadow: 0 40px 70px -48px rgba(69, 55, 31, 0.7);
+}
+.sf-account-content {
+  display: grid;
+  gap: 18px;
+}
+.sf-account-brand {
+  display: none;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 18px;
+  font: 600 18px "Readex Pro Variable", sans-serif;
+  color: var(--b800);
+}
+.sf-account-brand img {
+  width: 38px;
+  height: 38px;
+  border-radius: 11px;
+}
+.sf-account-eyebrow {
+  margin: 0;
+  justify-self: start;
+  padding: 3px 14px;
+  border-radius: 999px;
+  background: var(--b50);
+  border: 1px solid var(--b100);
+  color: var(--b700);
+  font-size: 13.5px;
+  font-weight: 600;
+}
+.sf-account-title {
+  margin: 0;
+  color: #292215;
+  font: 600 clamp(26px, 3.4vw, 34px) / 1.3 "Readex Pro Variable", sans-serif;
+  letter-spacing: -0.3px;
+}
+.sf-account-description,
+.sf-account-session-status,
+.sf-account-switch,
+.sf-account-demo-message {
+  margin: 0;
+}
+.sf-account-description {
+  color: var(--muted);
+  font-size: 15.5px;
+}
+.sf-account-session-status {
+  color: var(--muted);
+  font-size: 14.5px;
+}
+.sf-account-alert {
+  display: grid;
+  gap: 12px;
+  margin: 0;
+  padding: 14px 16px;
+  border: 1px solid #e3d0b0;
+  border-radius: 14px;
+  background: #fefbf5;
+  color: #7b3026;
+}
+.sf-account-login-button,
+.sf-account-retry-button,
+.sf-account-demo-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 52px;
+  border: 1px solid var(--b700);
+  border-radius: 14px;
+  padding: 10px 20px;
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 150ms, background 150ms;
+}
+.sf-account-login-button {
+  background: linear-gradient(180deg, #91784d, var(--b600));
+  color: #fff;
+  width: 100%;
+  box-shadow: 0 16px 28px -16px rgba(105, 84, 49, 0.95), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+.sf-account-login-button:hover:not(:disabled) {
+  transform: translateY(-2px);
+  background: linear-gradient(180deg, var(--b600), var(--b700));
+}
+.sf-account-retry-button,
+.sf-account-demo-button {
+  background: #fff;
+  color: var(--b700);
+  border-color: var(--b200);
+}
+.sf-account-retry-button:hover:not(:disabled),
+.sf-account-demo-button:hover:not(:disabled) {
+  background: var(--b50);
+}
+.sf-account-page button:disabled {
+  opacity: 0.55;
+  cursor: wait;
+}
+.sf-account-page button:focus-visible,
+.sf-account-page a:focus-visible {
+  outline: 3px solid rgba(130, 108, 69, 0.5);
+  outline-offset: 3px;
+}
+.sf-account-demo-choice {
+  display: grid;
+  gap: 10px;
+  padding: 16px;
+  background: var(--b50);
+  border: 1px dashed var(--b200);
+  border-radius: 16px;
+}
+.sf-account-demo-message {
+  font-size: 14px;
+  color: var(--b800);
+}
+.sf-account-demo-button {
+  width: 100%;
+}
+.sf-account-switch {
+  color: var(--muted);
+  font-size: 14.5px;
+}
+.sf-account-switch a {
+  color: var(--b600);
+  font-weight: 600;
+}
+.sf-account-session-banner {
+  max-width: 560px;
+  margin: 40px auto;
+  padding: 24px;
+  background: #fff;
+  border: 1px solid #ebe3d5;
+  border-radius: 20px;
+}
+.lang-switch {
+  display: inline-flex;
+  padding: 3px;
+  background: var(--b50);
+  border: 1px solid var(--b200);
+  border-radius: 999px;
+}
+.lang-switch button {
+  min-width: 48px;
+  height: 32px;
+  padding: 0 12px;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--muted);
+  font: 600 13px "IBM Plex Sans Arabic", sans-serif;
+  cursor: pointer;
+}
+.lang-switch button[aria-pressed="true"] {
+  background: var(--b600);
+  color: #fff;
+}
+@media (max-width: 860px) {
+  .sf-account-page {
+    grid-template-columns: 1fr;
+  }
+  .sf-account-aside {
+    display: none;
+  }
+  .sf-account-brand {
+    display: flex;
+  }
+}

@@ -1,0 +1,12 @@
+[build]
+  command = "corepack enable && pnpm install --frozen-lockfile && pnpm build:static"
+  publish = "dist/public"
+
+[build.environment]
+  NODE_VERSION = "22"
+  VITE_EXPLICIT_LOCAL_GUEST = "1"
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
