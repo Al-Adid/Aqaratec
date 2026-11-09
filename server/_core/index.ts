@@ -6,8 +6,14 @@ import { registerOAuthRoutes } from "./oauth";
 import { publicPlatformScript } from "./publicConfig";
 import { appRouter } from "../routers";
 import { createContext } from "./context";
-import { serveStatic, setupVite } from "./vite";
 import { registerPublicSeoDocuments } from "../public-pages";
+
+// `./vite` statically imports the `vite` package itself (a devDependency,
+// and a heavy one — esbuild/rollup). `createApp()` below never needs it
+// (Vercel serves static files from the CDN, not Express), so it is imported
+// dynamically, only inside `startServer()`'s long-running-process path. A
+// static import here would drag `vite` into Vercel's serverless function
+// bundle and crash every cold start, including routes that never touch it.
 
 export function createApp() {
   const app = express();
@@ -37,6 +43,7 @@ export function createApp() {
 async function startServer() {
   const app = createApp();
   const server = createServer(app);
+  const { serveStatic, setupVite } = await import("./vite");
 
   // development mode uses Vite, production mode uses static files
   if (process.env.NODE_ENV === "development") {
