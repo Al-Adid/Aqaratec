@@ -201,7 +201,8 @@ describe("PrototypeProvider storage safety", () => {
   it("restores validated JSON to a new selected workspace without replacing the previous scope", async () => {
     await mount({ status: "authenticated", userId: 9 });
     await act(async () => {
-      api.add("tasks", { title: "يبقى في المساحة السابقة", portfolioId: "family" });
+      const portfolio = api.add("portfolios", { title: "محفظة الحساب 9" });
+      api.add("tasks", { title: "يبقى في المساحة السابقة", portfolioId: portfolio.id });
       await api.retryLocalPersistence();
     });
     const previousKey = api.identity.storageKey;
@@ -486,6 +487,8 @@ describe("PrototypeProvider storage safety", () => {
   it("rejects a queued asset transition on workspace switch before any old-scope write", async () => {
     await mount({ status: "authenticated", userId: 31 });
     await act(async () => {
+      const portfolio = api.add("portfolios", { title: "محفظة الحساب 31" });
+      api.add("properties", { title: "عقار الحساب 31", portfolioId: portfolio.id });
       await api.retryLocalPersistence();
     });
     const oldScopeKey = api.identity.storageKey;

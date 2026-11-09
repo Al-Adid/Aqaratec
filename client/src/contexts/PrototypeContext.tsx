@@ -22,7 +22,7 @@ import {
   assertPrototypeState,
   validatePrototypeState,
 } from "@shared/prototype-validation";
-import { createDemoState } from "@/lib/demo-data";
+import { createDemoState, createEmptyState } from "@/lib/demo-data";
 import { financialSummary, outstandingFor } from "@/lib/prototype-finance";
 import { assertUnitIdentifierAvailable } from "@/lib/prototype-unit-identifiers";
 import {
@@ -290,6 +290,20 @@ function freshDemoState(): PrototypeState {
   return assertPrototypeState(normalizePrototype(createDemoState()));
 }
 
+function freshEmptyState(): PrototypeState {
+  return assertPrototypeState(normalizePrototype(createEmptyState()));
+}
+
+/**
+ * A real, authenticated account's first workspace must start empty, never the
+ * fictional sample data meant for an unauthenticated visitor exploring the
+ * demo. The demo content is clearly labelled fictional there; silently seeding
+ * it into a real account's workspace would look like it belongs to them.
+ */
+function startingStateFor(identity: PrototypeWorkspaceIdentity): PrototypeState {
+  return identity.status === "authenticated" ? freshEmptyState() : freshDemoState();
+}
+
 function randomWorkspaceId(): string {
   const uuid = globalThis.crypto?.randomUUID?.();
   return `local-${uuid ?? `${Date.now()}-${Math.random().toString(36).slice(2)}`}`;
@@ -383,8 +397,12 @@ function initialWorkspace(
       };
     }
     case "empty":
+      // The one case a real browser actually hits for a brand-new account: no
+      // saved local workspace yet. A real, authenticated account must start
+      // genuinely empty here, never the fictional demo content meant for an
+      // unauthenticated visitor exploring the sandbox.
       return {
-        state: demo,
+        state: startingStateFor(identity),
         raw: null,
         status: metadataStatus("ready", scope, loaded.metadata),
       };
@@ -1399,7 +1417,7 @@ function PrototypeProviderInstance({
   };
 
   const repairLocalWorkspace = async (): Promise<boolean> => {
-    const next = freshDemoState();
+    const next = startingStateFor(identity);
     if (
       !(await persistExact(next, {
         cloudBaseRevision: null,

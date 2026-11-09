@@ -1130,3 +1130,21 @@ export function createDemoState(): PrototypeState {
     },
   };
 }
+
+/** A real account's starting workspace: same shape as the demo, no fictional seed data. */
+export function createEmptyState(): PrototypeState {
+  const entities = Object.fromEntries(
+    ENTITY_KINDS.map(k => [k, []])
+  ) as unknown as Record<EntityKind, DemoEntity[]>;
+  return {
+    version: 1,
+    entities,
+    audit: [],
+    settings: {
+      role: "operator",
+      portfolioId: "all",
+      period: "2026-10",
+      language: "ar",
+    },
+  };
+}

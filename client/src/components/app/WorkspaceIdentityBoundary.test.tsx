@@ -95,13 +95,14 @@ describe("R08 identity background recheck", () => {
   });
 
   it("keeps quota-only changes through refetch and network failure but never gives to B", async () => {
+    const portfolio = await act(async () => api.add("portfolios", { title: "محفظة A" }));
     vi.spyOn(Storage.prototype, "setItem").mockImplementation(() => {
       throw new DOMException("quota", "QuotaExceededError");
     });
     await act(async () =>
       api.add("tasks", {
         title: "Only A volatile marker",
-        portfolioId: "family",
+        portfolioId: portfolio.id,
       })
     );
     expect(api.storage.kind).toBe("memory-only");
