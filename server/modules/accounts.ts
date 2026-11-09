@@ -1,11 +1,12 @@
 import { randomBytes, randomUUID, scrypt as scryptCallback, timingSafeEqual } from "crypto";
 import { promisify } from "util";
 import { TRPCError } from "@trpc/server";
+import { SignJWT, jwtVerify } from "jose";
 import { z } from "zod";
 import { COOKIE_NAME, ONE_YEAR_MS } from "@shared/const";
 import { getFirestore } from "../firebase";
 import { getSessionCookieOptions } from "../_core/cookies";
-import { sdk } from "../_core/sdk";
+import { ENV } from "../_core/env";
 import { adminProcedure, publicProcedure, router } from "../_core/trpc";
 
 const scrypt = promisify(scryptCallback);
@@ -276,6 +277,33 @@ export async function getAccountStore(): Promise<AccountStore> {
 // a reachable Manus OAuth server, so it works the same in dev and production.
 // ---------------------------------------------------------------------------
 
+// Deliberately independent of server/_core/sdk.ts's Manus-OAuth session
+// signing: that signer binds every token to MANUS_PROJECT_ID (`appId`) and
+// rejects tokens where it's empty, which it always is now that there's no
+// Manus app. Real accounts need their own, unconditionally valid session.
+function getSessionSecretKey(): Uint8Array {
+  if (!ENV.cookieSecret) throw new Error("SESSION_JWT_SECRET is unavailable");
+  return new TextEncoder().encode(ENV.cookieSecret);
+}
+
+async function signAccountSessionToken(openId: string, name: string, expiresInMs: number): Promise<string> {
+  const expirationSeconds = Math.floor((Date.now() + expiresInMs) / 1000);
+  return new SignJWT({ openId, name })
+    .setProtectedHeader({ alg: "HS256", typ: "JWT" })
+    .setExpirationTime(expirationSeconds)
+    .sign(getSessionSecretKey());
+}
+
+async function verifyAccountSessionToken(token: string): Promise<{ openId: string } | null> {
+  try {
+    const { payload } = await jwtVerify(token, getSessionSecretKey(), { algorithms: ["HS256"] });
+    const { openId } = payload as Record<string, unknown>;
+    return typeof openId === "string" && openId.length > 0 ? { openId } : null;
+  } catch {
+    return null;
+  }
+}
+
 export async function resolveSessionUser(req: {
   headers: { cookie?: string | undefined };
 }): Promise<PublicAccount | null> {
@@ -288,7 +316,7 @@ export async function resolveSessionUser(req: {
   if (!match) return null;
   const token = decodeURIComponent(match.slice(COOKIE_NAME.length + 1));
 
-  const session = await sdk.verifySession(token);
+  const session = await verifyAccountSessionToken(token);
   if (!session) return null;
 
   const store = await getAccountStore();
@@ -300,10 +328,7 @@ export async function resolveSessionUser(req: {
 }
 
 async function issueSession(res: { cookie: (name: string, value: string, options: unknown) => void }, req: unknown, account: PublicAccount) {
-  const sessionToken = await sdk.createSessionToken(account.openId, {
-    name: account.name || "",
-    expiresInMs: ONE_YEAR_MS,
-  });
+  const sessionToken = await signAccountSessionToken(account.openId, account.name || "", ONE_YEAR_MS);
   const cookieOptions = getSessionCookieOptions(req as never);
   res.cookie(COOKIE_NAME, sessionToken, { ...cookieOptions, maxAge: ONE_YEAR_MS });
 }
