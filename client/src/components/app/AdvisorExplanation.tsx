@@ -1,12 +1,13 @@
 import { useState } from "react";
 import { Sparkles, LogIn } from "lucide-react";
+import { useLocation } from "wouter";
 import { usePrototype } from "@/contexts/PrototypeContext";
 import { trpc } from "@/lib/trpc";
-import { startLogin } from "@/const";
 import type { AdvisorProfile } from "@shared/advisor-types";
 import { Panel } from "./Primitives";
 
 export function AdvisorExplanation({ profile }: { profile: AdvisorProfile }) {
+  const [, navigate] = useLocation();
   const { state } = usePrototype();
   const auth = trpc.auth.me.useQuery(undefined, {
     refetchOnWindowFocus: false,
@@ -38,7 +39,7 @@ export function AdvisorExplanation({ profile }: { profile: AdvisorProfile }) {
           <button
             className="btn-secondary"
             disabled={auth.isLoading}
-            onClick={() => startLogin()}
+            onClick={() => navigate("/login")}
           >
             <LogIn size={16} /> تسجيل الدخول للشرح
           </button>

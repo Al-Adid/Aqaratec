@@ -5,7 +5,6 @@ import { httpBatchLink, TRPCClientError } from "@trpc/client";
 import { createRoot } from "react-dom/client";
 import superjson from "superjson";
 import App from "./App";
-import { startLogin } from "./const";
 import "@fontsource/ibm-plex-sans-arabic/400.css";
 import "@fontsource/ibm-plex-sans-arabic/500.css";
 import "@fontsource/ibm-plex-sans-arabic/600.css";
@@ -24,7 +23,10 @@ const redirectToLoginIfUnauthorized = (error: unknown) => {
 
   if (!isUnauthorized) return;
 
-  startLogin();
+  // The app's own /login page, not the old Manus OAuth redirect: there is no
+  // Manus app configured anymore, so startLogin() always threw here.
+  if (window.location.pathname === "/login") return;
+  window.location.assign("/login");
 };
 
 queryClient.getQueryCache().subscribe(event => {

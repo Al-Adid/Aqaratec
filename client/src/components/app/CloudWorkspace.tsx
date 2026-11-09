@@ -10,8 +10,8 @@ import {
   X,
 } from "lucide-react";
 import { toast } from "sonner";
+import { useLocation } from "wouter";
 import { trpc } from "@/lib/trpc";
-import { startLogin } from "@/const";
 import { usePrototype } from "@/contexts/PrototypeContext";
 import {
   retainCloudBaseOnRemoteObservation,
@@ -47,6 +47,7 @@ function downloadJson(filename: string, contents: string) {
 }
 
 export function CloudWorkspace() {
+  const [, navigate] = useLocation();
   const [open, setOpen] = useState(false);
   const [observed, setObserved] = useState<ObservedWorkspace | null>(null);
   const [verifiedScope, setVerifiedScope] = useState<string | null>(null);
@@ -228,13 +229,7 @@ export function CloudWorkspace() {
     }
   };
 
-  const login = () => {
-    try {
-      startLogin();
-    } catch {
-      toast.error("تعذر بدء الدخول. يمكنك مواصلة البروتوتايب والحفظ المحلي.");
-    }
-  };
+  const login = () => navigate("/login");
 
   const remoteAlreadyExists =
     Boolean(observed?.snapshot) && cloudBaseline.revision === null;
