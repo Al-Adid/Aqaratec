@@ -285,8 +285,8 @@ export function LandingPage() {
           </div>
           <p className="sf-hero__note">
             {t(
-              "إنشاء الحساب يفتح عبر مسار Manus الحالي؛ لا توجد هنا استمارة بريد أو كلمة مرور بديلة.",
-              "Creating an account opens through the existing Manus flow. There is no email form or alternative password here."
+              "حساب حقيقي محمي بكلمة مرور. بريدك الإلكتروني وبياناتك لحسابك فقط.",
+              "A real, password-protected account. Your email and data belong to your account alone."
             )}
           </p>
         </div>
@@ -592,15 +592,13 @@ export function LandingPage() {
           <FaqItem question={t("كيف أسجل؟", "How do I sign up?")}>
             {isAr ? (
               <>
-                استخدم زر <a href="/register">إنشاء حساب</a> لفتح مسار التسجيل في
-                Manus الحالي. لا تجمع هذه الصفحة بريدًا إلكترونيًا أو كلمة مرور، ولا
-                تنشئ حسابًا بديلًا من داخلها.
+                استخدم زر <a href="/register">إنشاء حساب</a> لإنشاء حساب حقيقي
+                ببريدك الإلكتروني وكلمة مرور خاصة بك.
               </>
             ) : (
               <>
-                Use the <a href="/register">Create account</a> button to open the
-                existing Manus sign-up flow. This page collects no email or password
-                and does not create an account of its own.
+                Use the <a href="/register">Create account</a> button to create a
+                real account with your own email and password.
               </>
             )}
           </FaqItem>
@@ -618,8 +616,8 @@ export function LandingPage() {
           </h2>
           <p>
             {t(
-              "أنشئ حسابًا عبر Manus الحالي، أو افتح التجربة المحلية إذا أردت استكشاف تدفق العمل قبل البدء.",
-              "Create an account through the existing Manus flow, or open the local demo to explore the workflow first."
+              "أنشئ حسابًا حقيقيًا ببريدك الإلكتروني، أو افتح التجربة المحلية إذا أردت استكشاف تدفق العمل قبل البدء.",
+              "Create a real account with your email, or open the local demo to explore the workflow first."
             )}
           </p>
           <a className="sf-button" href="/register">
