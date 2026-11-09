@@ -1,20 +1,22 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import type { TrpcContext } from "../_core/context";
 import {
-  accountsRouter,
+  createAccountsRouter,
+  createSuperAdminRouter,
   hardcodedAccountStore,
   hashPassword,
-  superAdminRouter,
   verifyPassword,
 } from "./accounts";
 
-// Session signing needs a secret; tests never touch the real MANUS_JWT_SECRET.
-beforeEach(() => vi.stubEnv("MANUS_JWT_SECRET", "test-only-session-secret"));
+// Session signing needs a secret; tests never touch the real SESSION_JWT_SECRET.
+beforeEach(() => vi.stubEnv("SESSION_JWT_SECRET", "test-only-session-secret"));
 afterEach(() => vi.unstubAllEnvs());
 
-// These specs exercise the in-memory account store directly (no DATABASE_URL
-// in the test environment), which is also what a fresh local run of the app
-// uses until a real database is connected.
+// These specs exercise the real router logic against the in-memory test
+// fixture store (see accounts.ts), never live Firestore — same pattern as
+// prototype.spec.ts passing an explicit store to createPrototypeRouter.
+const accountsRouter = createAccountsRouter(hardcodedAccountStore);
+const superAdminRouter = createSuperAdminRouter(hardcodedAccountStore);
 
 function cookieContext(): { ctx: TrpcContext; cookies: Array<{ name: string; value: string }> } {
   const cookies: Array<{ name: string; value: string }> = [];

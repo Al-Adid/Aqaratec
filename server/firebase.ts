@@ -1,22 +1,34 @@
 import { cert, getApps, initializeApp } from "firebase-admin/app";
-import { getFirestore } from "firebase-admin/firestore";
+import { getFirestore as getAdminFirestore, type Firestore } from "firebase-admin/firestore";
 
-if (!getApps().length) {
-  const projectId = process.env.FIREBASE_PROJECT_ID;
-  const clientEmail = process.env.FIREBASE_CLIENT_EMAIL;
-  const privateKey = process.env.FIREBASE_PRIVATE_KEY;
-  if (!projectId || !clientEmail || !privateKey) {
-    throw new Error(
-      "FIREBASE_PROJECT_ID, FIREBASE_CLIENT_EMAIL and FIREBASE_PRIVATE_KEY are required"
-    );
+let _firestore: Firestore | null = null;
+
+/**
+ * Lazily connect, so importing a module that merely *can* reach Firestore
+ * (e.g. accounts.ts) doesn't require credentials to be present — only
+ * actually calling this does. Mirrors the old `getDb()` lazy-connect shape.
+ */
+export function getFirestore(): Firestore {
+  if (_firestore) return _firestore;
+
+  if (!getApps().length) {
+    const projectId = process.env.FIREBASE_PROJECT_ID;
+    const clientEmail = process.env.FIREBASE_CLIENT_EMAIL;
+    const privateKey = process.env.FIREBASE_PRIVATE_KEY;
+    if (!projectId || !clientEmail || !privateKey) {
+      throw new Error(
+        "FIREBASE_PROJECT_ID, FIREBASE_CLIENT_EMAIL and FIREBASE_PRIVATE_KEY are required"
+      );
+    }
+    initializeApp({
+      credential: cert({
+        projectId,
+        clientEmail,
+        privateKey: privateKey.replace(/\\n/g, "\n"),
+      }),
+    });
   }
-  initializeApp({
-    credential: cert({
-      projectId,
-      clientEmail,
-      privateKey: privateKey.replace(/\\n/g, "\n"),
-    }),
-  });
-}
 
-export const firestore = getFirestore();
+  _firestore = getAdminFirestore();
+  return _firestore;
+}

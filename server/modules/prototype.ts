@@ -1,5 +1,4 @@
 import { TRPCError } from "@trpc/server";
-import { and, eq, sql } from "drizzle-orm";
 import { z } from "zod";
 import {
   type DemoEntity,
@@ -7,9 +6,10 @@ import {
   type PrototypeState,
 } from "@shared/prototype";
 import { prototypeStateSchema } from "@shared/prototype-validation";
-import { prototypeWorkspaces } from "../../drizzle/schema";
-import { getDb } from "../db";
+import { getFirestore } from "../firebase";
 import { protectedProcedure, router } from "../_core/trpc";
+
+const WORKSPACES_COLLECTION = "prototypeWorkspaces";
 
 export {
   auditEventSchema,
@@ -47,90 +47,10 @@ function revisionConflict(): TRPCError {
   });
 }
 
-function isDuplicateKeyError(error: unknown): boolean {
-  return (
-    typeof error === "object" &&
-    error !== null &&
-    "code" in error &&
-    error.code === "ER_DUP_ENTRY"
-  );
-}
-
-async function requireDatabase() {
-  const db = await getDb();
-  if (!db) {
-    throw new TRPCError({
-      code: "INTERNAL_SERVER_ERROR",
-      message: "Prototype storage is unavailable.",
-    });
-  }
-  return db;
-}
-
-/** Database-backed implementation. CAS makes revision checks atomic per user row. */
-export const databasePrototypeWorkspaceStore: PrototypeWorkspaceStore = {
-  async load(userId) {
-    const db = await requireDatabase();
-    const rows = await db
-      .select({
-        snapshot: prototypeWorkspaces.snapshot,
-        revision: prototypeWorkspaces.revision,
-        updatedAt: prototypeWorkspaces.updatedAt,
-      })
-      .from(prototypeWorkspaces)
-      .where(eq(prototypeWorkspaces.userId, userId))
-      .limit(1);
-
-    const row = rows[0];
-    if (!row) return undefined;
-
-    return {
-      snapshot: row.snapshot,
-      revision: row.revision,
-      updatedAt: row.updatedAt,
-    };
-  },
-
-  async create(userId, snapshot) {
-    const db = await requireDatabase();
-    try {
-      await db.insert(prototypeWorkspaces).values({
-        userId,
-        snapshot,
-        revision: 1,
-      });
-      return true;
-    } catch (error) {
-      // The sole unique constraint is userId. A competing expectedRevision=0
-      // creation therefore becomes a normal revision conflict, not an overwrite.
-      if (isDuplicateKeyError(error)) return false;
-      throw error;
-    }
-  },
-
-  async compareAndSwap(userId, expectedRevision, snapshot) {
-    const db = await requireDatabase();
-    const result = await db
-      .update(prototypeWorkspaces)
-      .set({
-        snapshot,
-        revision: sql`${prototypeWorkspaces.revision} + 1`,
-      })
-      .where(
-        and(
-          eq(prototypeWorkspaces.userId, userId),
-          eq(prototypeWorkspaces.revision, expectedRevision)
-        )
-      );
-
-    return result[0].affectedRows === 1;
-  },
-};
-
 /**
- * In-memory implementation, used whenever no DATABASE_URL is configured so a
- * real (non-guest) account still has a working cloud workspace before a
- * database is wired up. Data lives only for the life of this process.
+ * In-memory implementation. Test-only fixture (see prototype.spec.ts,
+ * prototype-load-identity.spec.ts) — never used by the running app, which
+ * always talks to Firestore via `firestorePrototypeWorkspaceStore` below.
  */
 const memoryWorkspaces = new Map<number, StoredPrototypeWorkspace>();
 
@@ -155,26 +75,48 @@ export const inMemoryPrototypeWorkspaceStore: PrototypeWorkspaceStore = {
   },
 };
 
-/** Picks database vs. in-memory per call, mirroring `getAccountStore()` in `./accounts.ts`. */
-export const autoPrototypeWorkspaceStore: PrototypeWorkspaceStore = {
+function workspaceDoc(userId: number) {
+  return getFirestore().collection(WORKSPACES_COLLECTION).doc(String(userId));
+}
+
+/** The real, persistent workspace store — properties, units, leases, everything. */
+export const firestorePrototypeWorkspaceStore: PrototypeWorkspaceStore = {
   async load(userId) {
-    const db = await getDb();
-    return (db ? databasePrototypeWorkspaceStore : inMemoryPrototypeWorkspaceStore).load(userId);
+    const doc = await workspaceDoc(userId).get();
+    if (!doc.exists) return undefined;
+    const data = doc.data()!;
+    return {
+      snapshot: data.snapshot as PrototypeState,
+      revision: data.revision as number,
+      updatedAt:
+        data.updatedAt instanceof Date
+          ? data.updatedAt
+          : (data.updatedAt as FirebaseFirestore.Timestamp).toDate(),
+    };
   },
   async create(userId, snapshot) {
-    const db = await getDb();
-    return (db ? databasePrototypeWorkspaceStore : inMemoryPrototypeWorkspaceStore).create(
-      userId,
-      snapshot
-    );
+    return getFirestore().runTransaction(async tx => {
+      const ref = workspaceDoc(userId);
+      const existing = await tx.get(ref);
+      if (existing.exists) return false;
+      tx.set(ref, { snapshot, revision: 1, updatedAt: new Date() });
+      return true;
+    });
   },
   async compareAndSwap(userId, expectedRevision, snapshot) {
-    const db = await getDb();
-    return (
-      db ? databasePrototypeWorkspaceStore : inMemoryPrototypeWorkspaceStore
-    ).compareAndSwap(userId, expectedRevision, snapshot);
+    return getFirestore().runTransaction(async tx => {
+      const ref = workspaceDoc(userId);
+      const existing = await tx.get(ref);
+      if (!existing.exists) return false;
+      if ((existing.data()!.revision as number) !== expectedRevision) return false;
+      tx.update(ref, { snapshot, revision: expectedRevision + 1, updatedAt: new Date() });
+      return true;
+    });
   },
 };
+
+/** Kept as the public name the rest of the app imports (routers.ts, this file's default). */
+export const autoPrototypeWorkspaceStore = firestorePrototypeWorkspaceStore;
 
 const saveInputSchema = z
   .object({
@@ -188,7 +130,7 @@ const saveInputSchema = z
   .strict();
 
 export function createPrototypeRouter(
-  store: PrototypeWorkspaceStore = databasePrototypeWorkspaceStore
+  store: PrototypeWorkspaceStore = firestorePrototypeWorkspaceStore
 ) {
   return router({
     load: protectedProcedure

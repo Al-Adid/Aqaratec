@@ -57,7 +57,7 @@ describe("current platform integration", () => {
   });
   it("binds signed app sessions to this project and accepts an empty display name", async () => {
     vi.stubEnv("MANUS_PROJECT_ID", "project-test");
-    vi.stubEnv("MANUS_JWT_SECRET", "unit-test-signing-key-never-deployed");
+    vi.stubEnv("SESSION_JWT_SECRET", "unit-test-signing-key-never-deployed");
     const token = await sdk.signSession({ openId: "user-test", appId: "project-test", name: "" });
     expect(await sdk.verifySession(token)).toMatchObject({ openId: "user-test" });
     vi.stubEnv("MANUS_PROJECT_ID", "different-project");
