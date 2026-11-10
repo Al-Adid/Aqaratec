@@ -15,9 +15,9 @@ import {
 
 function KpiCard({ label, value }: { label: string; value: number }) {
   return (
-    <div className="rounded-lg border border-neutral-800 bg-neutral-900 px-4 py-3">
-      <p className="text-xs text-neutral-400">{label}</p>
-      <p className="mt-1 text-2xl font-semibold text-neutral-50">{value}</p>
+    <div className="rounded-xl border border-[#eee9e1] bg-white px-4 py-3 shadow-sm shadow-black/[0.02]">
+      <p className="text-xs text-neutral-500">{label}</p>
+      <p className="mt-1 text-2xl font-semibold text-neutral-900">{value}</p>
     </div>
   );
 }
@@ -40,7 +40,7 @@ function SuperAdminDashboardContent({ adminId }: { adminId: number }) {
 
   if (overview.isLoading) {
     return (
-      <div className="flex flex-1 items-center justify-center text-neutral-400">
+      <div className="flex flex-1 items-center justify-center text-neutral-500">
         <Loader2 className="animate-spin" size={22} />
       </div>
     );
@@ -48,7 +48,7 @@ function SuperAdminDashboardContent({ adminId }: { adminId: number }) {
 
   if (overview.error || !overview.data) {
     return (
-      <div className="flex flex-1 items-center justify-center text-red-400">
+      <div className="flex flex-1 items-center justify-center text-red-600">
         تعذر تحميل بيانات لوحة التحكم.
       </div>
     );
@@ -67,44 +67,56 @@ function SuperAdminDashboardContent({ adminId }: { adminId: number }) {
         <KpiCard label="مساحات محفوظة" value={totals.savedWorkspaces} />
       </div>
 
-      <div className="mt-6 overflow-hidden rounded-lg border border-neutral-800">
+      <div className="mt-6 overflow-hidden rounded-xl border border-[#eee9e1] bg-white shadow-sm shadow-black/[0.02]">
         <Table>
           <TableHeader>
-            <TableRow className="border-neutral-800 hover:bg-transparent">
-              <TableHead className="text-neutral-400">الاسم</TableHead>
-              <TableHead className="text-neutral-400">البريد الإلكتروني</TableHead>
-              <TableHead className="text-neutral-400">الدور</TableHead>
-              <TableHead className="text-neutral-400">الحالة</TableHead>
-              <TableHead className="text-neutral-400">مساحة العمل</TableHead>
-              <TableHead className="text-neutral-400">آخر دخول</TableHead>
-              <TableHead className="text-neutral-400"></TableHead>
+            <TableRow className="border-[#eee9e1] hover:bg-transparent">
+              <TableHead className="text-neutral-500">الاسم</TableHead>
+              <TableHead className="text-neutral-500">البريد الإلكتروني</TableHead>
+              <TableHead className="text-neutral-500">الدور</TableHead>
+              <TableHead className="text-neutral-500">الحالة</TableHead>
+              <TableHead className="text-neutral-500">مساحة العمل</TableHead>
+              <TableHead className="text-neutral-500">آخر دخول</TableHead>
+              <TableHead className="text-neutral-500"></TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
             {accounts.map(({ account, workspace }) => (
-              <TableRow key={account.id} className="border-neutral-800">
-                <TableCell className="text-neutral-200">
+              <TableRow key={account.id} className="border-[#eee9e1]">
+                <TableCell className="text-neutral-800">
                   {account.name || "—"}
                 </TableCell>
-                <TableCell dir="ltr" className="text-neutral-300">
+                <TableCell dir="ltr" className="text-neutral-600">
                   {account.email || "—"}
                 </TableCell>
                 <TableCell>
-                  <Badge variant={account.role === "admin" ? "default" : "secondary"}>
+                  <Badge
+                    className={
+                      account.role === "admin"
+                        ? "bg-[#826c45]/10 text-[#826c45]"
+                        : "bg-neutral-100 text-neutral-600"
+                    }
+                  >
                     {account.role === "admin" ? "مدير منصة" : "مالك عقار"}
                   </Badge>
                 </TableCell>
                 <TableCell>
-                  <Badge variant={account.isActive ? "secondary" : "destructive"}>
+                  <Badge
+                    className={
+                      account.isActive
+                        ? "bg-emerald-50 text-emerald-700"
+                        : "bg-red-50 text-red-700"
+                    }
+                  >
                     {account.isActive ? "نشط" : "موقوف"}
                   </Badge>
                 </TableCell>
-                <TableCell className="text-neutral-400">
+                <TableCell className="text-neutral-500">
                   {workspace
                     ? `${workspace.recordCount} سجل • إصدار ${workspace.revision}`
                     : "لا توجد مساحة محفوظة"}
                 </TableCell>
-                <TableCell className="text-neutral-400">
+                <TableCell className="text-neutral-500">
                   {new Date(account.lastSignedIn).toLocaleDateString("ar")}
                 </TableCell>
                 <TableCell>
@@ -112,7 +124,7 @@ function SuperAdminDashboardContent({ adminId }: { adminId: number }) {
                     size="sm"
                     variant="outline"
                     disabled={account.id === adminId || setActiveMutation.isPending}
-                    className="border-neutral-700 text-neutral-200 hover:bg-neutral-800"
+                    className="border-[#eee9e1] text-neutral-700 hover:bg-[#f9f7f5]"
                     onClick={() =>
                       setActiveMutation.mutate({
                         accountId: account.id,
@@ -140,7 +152,7 @@ function SuperAdminDashboardContent({ adminId }: { adminId: number }) {
       <div className="mt-4">
         <Button
           variant="ghost"
-          className="text-neutral-400 hover:text-neutral-100"
+          className="text-neutral-500 hover:bg-[#f1ece4] hover:text-neutral-900"
           onClick={() => logoutMutation.mutate()}
         >
           <LogOut size={14} /> تسجيل الخروج
@@ -168,27 +180,30 @@ export function SuperAdminDashboardPage() {
 
   if (auth.isLoading || !auth.data || auth.data.role !== "admin") {
     return (
-      <main className="flex min-h-screen items-center justify-center bg-neutral-950 text-neutral-400">
+      <main className="flex min-h-screen items-center justify-center bg-gradient-to-b from-[#f9f7f5] to-[#f1ece4] text-neutral-500">
         <Loader2 className="animate-spin" size={22} />
       </main>
     );
   }
 
   return (
-    <main dir="rtl" className="min-h-screen bg-neutral-950 px-6 py-8 text-neutral-100">
+    <main
+      dir="rtl"
+      className="min-h-screen bg-gradient-to-b from-[#f9f7f5] to-[#f1ece4] px-6 py-8 text-neutral-900"
+    >
       <header className="mb-6 flex items-center justify-between">
         <div className="flex items-center gap-3">
-          <span className="flex size-10 items-center justify-center rounded-lg bg-amber-500/10 text-amber-400">
+          <span className="flex size-10 items-center justify-center rounded-xl bg-[#826c45]/10 text-[#826c45]">
             <Database size={20} />
           </span>
           <div>
-            <h1 className="text-lg font-semibold">لوحة تحكم المنصة</h1>
-            <p className="text-sm text-neutral-400">
+            <h1 className="text-lg font-semibold text-neutral-900">لوحة تحكم المنصة</h1>
+            <p className="text-sm text-neutral-500">
               مرحبًا، {auth.data.name || auth.data.email}
             </p>
           </div>
         </div>
-        <div className="flex items-center gap-2 text-sm text-neutral-400">
+        <div className="flex items-center gap-2 text-sm text-neutral-500">
           <Users size={15} /> عرض عبر جميع الحسابات
         </div>
       </header>

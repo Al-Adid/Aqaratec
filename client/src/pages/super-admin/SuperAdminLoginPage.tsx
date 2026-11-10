@@ -58,16 +58,16 @@ export function SuperAdminLoginPage() {
   return (
     <main
       dir="rtl"
-      className="flex min-h-screen items-center justify-center bg-neutral-950 px-4 text-neutral-100"
+      className="flex min-h-screen items-center justify-center bg-gradient-to-b from-[#f9f7f5] to-[#f1ece4] px-4"
     >
-      <div className="w-full max-w-sm rounded-xl border border-neutral-800 bg-neutral-900 p-8 shadow-xl">
+      <div className="w-full max-w-sm rounded-2xl border border-[#eee9e1] bg-white p-8 shadow-lg shadow-black/5">
         <div className="mb-6 flex items-center gap-3">
-          <span className="flex size-10 items-center justify-center rounded-lg bg-amber-500/10 text-amber-400">
-            <ShieldAlert size={20} />
+          <span className="flex size-11 items-center justify-center rounded-xl bg-[#826c45]/10 text-[#826c45]">
+            <ShieldAlert size={22} />
           </span>
           <div>
-            <h1 className="text-lg font-semibold">تحكم المنصة</h1>
-            <p className="text-sm text-neutral-400">
+            <h1 className="text-lg font-semibold text-neutral-900">تحكم المنصة</h1>
+            <p className="text-sm text-neutral-500">
               وصول مخصّص لمشغّلي المنصة فقط
             </p>
           </div>
@@ -75,7 +75,7 @@ export function SuperAdminLoginPage() {
 
         <form className="flex flex-col gap-4" onSubmit={handleSubmit} noValidate>
           <div className="flex flex-col gap-1.5">
-            <Label htmlFor="admin-email" className="text-neutral-300">
+            <Label htmlFor="admin-email" className="text-neutral-600">
               البريد الإلكتروني
             </Label>
             <Input
@@ -86,11 +86,11 @@ export function SuperAdminLoginPage() {
               value={email}
               onChange={event => setEmail(event.target.value)}
               disabled={loginMutation.isPending}
-              className="border-neutral-700 bg-neutral-950 text-neutral-100"
+              className="border-[#eee9e1] bg-[#f9f7f5] text-neutral-900"
             />
           </div>
           <div className="flex flex-col gap-1.5">
-            <Label htmlFor="admin-password" className="text-neutral-300">
+            <Label htmlFor="admin-password" className="text-neutral-600">
               كلمة المرور
             </Label>
             <Input
@@ -101,12 +101,12 @@ export function SuperAdminLoginPage() {
               value={password}
               onChange={event => setPassword(event.target.value)}
               disabled={loginMutation.isPending}
-              className="border-neutral-700 bg-neutral-950 text-neutral-100"
+              className="border-[#eee9e1] bg-[#f9f7f5] text-neutral-900"
             />
           </div>
 
           {error ? (
-            <p role="alert" className="text-sm text-red-400">
+            <p role="alert" className="text-sm text-red-600">
               {error}
             </p>
           ) : null}
@@ -114,7 +114,7 @@ export function SuperAdminLoginPage() {
           <Button
             type="submit"
             disabled={loginMutation.isPending}
-            className="bg-amber-500 text-neutral-950 hover:bg-amber-400"
+            className="bg-[#826c45] text-white hover:bg-[#6e5b39]"
           >
             {loginMutation.isPending ? (
               <>
