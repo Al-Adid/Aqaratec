@@ -15,13 +15,16 @@ import {
   ChevronRight,
   FlaskConical,
   Layers,
+  LogOut,
   Menu,
   RotateCcw,
   Search,
+  Settings,
   ShieldCheck,
   X,
 } from "lucide-react";
 import { usePrototype } from "@/contexts/PrototypeContext";
+import { trpc } from "@/lib/trpc";
 import {
   allNavigation,
   navigation,
@@ -35,11 +38,24 @@ import { useI18n } from "@/i18n";
 import { CloudWorkspace } from "./CloudWorkspace";
 import { WorkspaceStorageBanner } from "./WorkspaceStorageBanner";
 import { CommandPalette } from "./CommandPalette";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 export function AppFrame({ children }: { children: ReactNode }) {
   const [location, navigate] = useLocation();
-  const { state, list, setSetting, reset } = usePrototype();
+  const { state, list, setSetting, reset, identity } = usePrototype();
   const { lang, isAr, t } = useI18n();
+  const utils = trpc.useUtils();
+  const logoutMutation = trpc.auth.logout.useMutation({
+    onSuccess: () => {
+      utils.auth.me.setData(undefined, null);
+      navigate("/login", { replace: true });
+    },
+  });
   const [mobileOpen, setMobileOpen] = useState(false);
   const [paletteOpen, setPaletteOpen] = useState(false);
   const [openGroups, setOpenGroups] = useState<string[]>([]);
@@ -276,13 +292,32 @@ export function AppFrame({ children }: { children: ReactNode }) {
               <Bell size={19} />
               <i />
             </button>
-            <Link
-              href="/settings"
-              className="profile-circle"
-              aria-label={t("إعدادات التجربة", "Demo settings")}
-            >
-              {isAr ? "ص" : "S"}
-            </Link>
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <button
+                  type="button"
+                  className="profile-circle"
+                  aria-label={t("حساب المستخدم", "Account menu")}
+                >
+                  {isAr ? "ص" : "S"}
+                </button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end">
+                <DropdownMenuItem onSelect={() => navigate("/settings")}>
+                  <Settings size={16} />
+                  {t("الإعدادات", "Settings")}
+                </DropdownMenuItem>
+                {identity.status === "authenticated" ? (
+                  <DropdownMenuItem
+                    disabled={logoutMutation.isPending}
+                    onSelect={() => logoutMutation.mutate()}
+                  >
+                    <LogOut size={16} />
+                    {t("تسجيل الخروج", "Log out")}
+                  </DropdownMenuItem>
+                ) : null}
+              </DropdownMenuContent>
+            </DropdownMenu>
           </div>
         </header>
         <div className="prototype-strip">
@@ -290,10 +325,15 @@ export function AppFrame({ children }: { children: ReactNode }) {
             <FlaskConical size={14} />
             <strong>{t("بروتوتايب تجريبي", "Demo prototype")}</strong>
             <i />
-            {t(
-              "بيانات خيالية · الحفظ محلي في هذا المتصفح",
-              "Fictional data. Saved locally in this browser"
-            )}
+            {identity.status === "authenticated"
+              ? t(
+                  "حساب حقيقي · الحفظ محلي حتى تختار الحفظ في السحابة",
+                  "Real account. Saved locally until you choose to save to the cloud"
+                )
+              : t(
+                  "بيانات خيالية · الحفظ محلي في هذا المتصفح",
+                  "Fictional data. Saved locally in this browser"
+                )}
           </span>
           <Link href="/roadmap">
             {t(
