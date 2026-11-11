@@ -3,7 +3,7 @@ import { promisify } from "util";
 import { TRPCError } from "@trpc/server";
 import { SignJWT, jwtVerify } from "jose";
 import { z } from "zod";
-import { COOKIE_NAME, ONE_YEAR_MS } from "@shared/const";
+import { COOKIE_NAME, ONE_HOUR_MS } from "@shared/const";
 import { getFirestore } from "../firebase";
 import { getSessionCookieOptions } from "../_core/cookies";
 import { ENV } from "../_core/env";
@@ -327,10 +327,16 @@ export async function resolveSessionUser(req: {
   return toPublicAccount(account);
 }
 
+/**
+ * Each login/register issues a fresh, short-lived session: the cookie and the
+ * JWT's own `exp` both expire after ONE_HOUR_MS, so a browser can't carry a
+ * stale sign-in indefinitely (previously 1 year) — the owner has to log back
+ * in roughly every hour, each time producing a new, independent session token.
+ */
 async function issueSession(res: { cookie: (name: string, value: string, options: unknown) => void }, req: unknown, account: PublicAccount) {
-  const sessionToken = await signAccountSessionToken(account.openId, account.name || "", ONE_YEAR_MS);
+  const sessionToken = await signAccountSessionToken(account.openId, account.name || "", ONE_HOUR_MS);
   const cookieOptions = getSessionCookieOptions(req as never);
-  res.cookie(COOKIE_NAME, sessionToken, { ...cookieOptions, maxAge: ONE_YEAR_MS });
+  res.cookie(COOKIE_NAME, sessionToken, { ...cookieOptions, maxAge: ONE_HOUR_MS });
 }
 
 // ---------------------------------------------------------------------------

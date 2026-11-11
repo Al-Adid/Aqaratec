@@ -203,6 +203,20 @@
   width: 100%;
   box-shadow: 0 16px 28px -16px rgba(105, 84, 49, 0.95), inset 0 1px 0 rgba(255, 255, 255, 0.2);
 }
+.sf-account-alert-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.sf-account-alert-actions > * {
+  flex: 1 1 200px;
+  min-height: 48px;
+}
+.sf-account-alert-primary-button {
+  background: linear-gradient(180deg, #91784d, var(--b600));
+  color: #fff;
+  box-shadow: 0 16px 28px -16px rgba(105, 84, 49, 0.95), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
 .sf-account-login-button:hover:not(:disabled) {
   transform: translateY(-2px);
   background: linear-gradient(180deg, var(--b600), var(--b700));

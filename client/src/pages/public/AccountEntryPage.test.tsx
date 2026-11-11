@@ -19,6 +19,10 @@ const loginMutation = vi.hoisted(() => ({
   mutate: vi.fn(),
   isPending: false,
 }));
+const logoutMutation = vi.hoisted(() => ({
+  mutate: vi.fn(),
+  isPending: false,
+}));
 const setAuthData = vi.hoisted(() => vi.fn());
 const navigate = vi.hoisted(() => vi.fn());
 
@@ -33,6 +37,7 @@ vi.mock("@/lib/trpc", () => ({
       },
       register: { useMutation: () => registerMutation },
       login: { useMutation: () => loginMutation },
+      logout: { useMutation: () => logoutMutation },
     },
     useUtils: () => ({ auth: { me: { setData: setAuthData } } }),
   },
@@ -76,6 +81,8 @@ beforeEach(() => {
   registerMutation.isPending = false;
   loginMutation.mutate.mockReset();
   loginMutation.isPending = false;
+  logoutMutation.mutate.mockReset();
+  logoutMutation.isPending = false;
   setAuthData.mockReset();
   navigate.mockReset();
   host = document.createElement("div");
@@ -202,6 +209,23 @@ describe("AccountEntryPage", () => {
     await render();
 
     expect(navigate).toHaveBeenCalledWith("/dashboard", { replace: true });
+  });
+
+  it("does not silently redirect an already-signed-in visitor off the register form", async () => {
+    auth.data = { id: 7, name: "مستخدم" };
+    await render("register");
+
+    expect(navigate).not.toHaveBeenCalled();
+    expect(host.querySelector("form")).toBeNull();
+    expect(host.textContent).toContain("مستخدم");
+
+    const logoutButton = Array.from(host.querySelectorAll("button")).find(node =>
+      node.textContent?.includes("تسجيل الخروج وإنشاء حساب آخر")
+    );
+    await act(async () =>
+      logoutButton?.dispatchEvent(new MouseEvent("click", { bubbles: true }))
+    );
+    expect(logoutMutation.mutate).toHaveBeenCalledTimes(1);
   });
 
   it("disables auth.me and does not turn stale query data into a local login", async () => {

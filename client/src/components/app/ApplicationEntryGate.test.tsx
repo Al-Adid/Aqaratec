@@ -25,6 +25,7 @@ vi.mock("@/lib/trpc", () => ({
       },
       register: { useMutation: () => ({ mutate: vi.fn(), isPending: false }) },
       login: { useMutation: () => ({ mutate: vi.fn(), isPending: false }) },
+      logout: { useMutation: () => ({ mutate: vi.fn(), isPending: false }) },
     },
     useUtils: () => ({ auth: { me: { setData: vi.fn() } } }),
   },

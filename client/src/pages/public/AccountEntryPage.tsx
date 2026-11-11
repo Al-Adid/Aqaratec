@@ -132,13 +132,23 @@ export function AccountEntryPage({
     [raw, isAr]
   );
 
+  const logoutMutation = trpc.auth.logout.useMutation({
+    onSuccess: () => utils.auth.me.setData(undefined, null),
+  });
+
   useEffect(() => {
-    if (!explicitLocalGuest && auth.data) {
+    // On /login, an existing session means "you're done, go in" — redirect
+    // straight through. On /register, silently redirecting was the actual bug
+    // behind "I type a new name and email and it just logs me in": whatever
+    // the visitor typed was ignored and they landed on their OLD account's
+    // dashboard. Show them who they're signed in as instead, with an explicit
+    // choice, rather than guessing what they meant.
+    if (!explicitLocalGuest && auth.data && mode === "login") {
       // This destination is intentionally fixed: never accept a redirect target
       // from the query string or an arbitrary previous location.
       navigate("/dashboard", { replace: true });
     }
-  }, [auth.data, explicitLocalGuest, navigate]);
+  }, [auth.data, explicitLocalGuest, mode, navigate]);
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -202,6 +212,8 @@ export function AccountEntryPage({
   const isCheckingSession =
     !explicitLocalGuest && (auth.isLoading || auth.isFetching);
   const sessionError = !explicitLocalGuest ? auth.error : null;
+  const alreadySignedIn =
+    mode === "register" && !explicitLocalGuest ? auth.data : null;
 
   const points = [
     t("عقود وفواتير وتحصيل في مكان واحد", "Leases, invoices and collections in one place"),
@@ -289,6 +301,39 @@ export function AccountEntryPage({
               </div>
             ) : null}
 
+            {alreadySignedIn ? (
+              <div className="sf-account-alert" role="status">
+                <p>
+                  {t(
+                    `أنت مسجَّل الدخول بالفعل باسم ${
+                      alreadySignedIn.name || alreadySignedIn.email
+                    }. سجّل الخروج أولًا إن كنت تريد إنشاء حساب مختلف.`,
+                    `You're already signed in as ${
+                      alreadySignedIn.name || alreadySignedIn.email
+                    }. Log out first if you want to create a different account.`
+                  )}
+                </p>
+                <div className="sf-account-alert-actions">
+                  <Button
+                    type="button"
+                    className="sf-public-primary-button sf-account-alert-primary-button"
+                    onClick={() => navigate("/dashboard", { replace: true })}
+                  >
+                    {t("الذهاب إلى لوحة التحكم", "Go to dashboard")}
+                  </Button>
+                  <button
+                    className="sf-public-secondary-button sf-account-retry-button"
+                    type="button"
+                    disabled={logoutMutation.isPending}
+                    onClick={() => logoutMutation.mutate()}
+                  >
+                    {t("تسجيل الخروج وإنشاء حساب آخر", "Log out and create another account")}
+                  </button>
+                </div>
+              </div>
+            ) : null}
+
+            {alreadySignedIn ? null : (
             <form
               className="flex flex-col gap-4"
               onSubmit={handleSubmit}
@@ -382,8 +427,9 @@ export function AccountEntryPage({
                 )}
               </Button>
             </form>
+            )}
 
-            {onTryDemo ? (
+            {onTryDemo && !alreadySignedIn ? (
               <div className="sf-account-demo-choice">
                 {demoMessage ? (
                   <p className="sf-account-demo-message">{demoMessage}</p>
@@ -398,10 +444,12 @@ export function AccountEntryPage({
               </div>
             ) : null}
 
-            <p className="sf-account-switch">
-              {content.alternate}{" "}
-              <a href={content.alternateHref}>{content.alternateLabel}</a>
-            </p>
+            {alreadySignedIn ? null : (
+              <p className="sf-account-switch">
+                {content.alternate}{" "}
+                <a href={content.alternateHref}>{content.alternateLabel}</a>
+              </p>
+            )}
           </div>
         </section>
       </div>
